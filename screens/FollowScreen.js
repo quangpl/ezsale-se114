@@ -1,18 +1,18 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-
+import HorizontalItem from "../components/HorizontalItem";
 export default function FollowScreen() {
   return (
     <ScrollView style={styles.container}>
-      <Text
-        style={{
-          fontSize: 18,
-          color: "blue"
-        }}
-      >
-        Nội dung của trang theo dõi
-      </Text>
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
+      <HorizontalItem />
     </ScrollView>
   );
 }
