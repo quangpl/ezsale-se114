@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, FlatList } from "react-native";
 import data from "../mock-db/db.json"
 import axios from "axios";
 import TextItem from "../components/TextItem";
-import HorizontalItem from "../components/Notification";
+import Notification from "../components/Notification";
 export default class NotifyScreen extends React.Component {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
@@ -29,14 +29,93 @@ export default class NotifyScreen extends React.Component {
   render() {
     const { NotifyScreen } = this.state;
     return (
-   <Text>{data.id}</Text>
+      <ScrollView style={styles.container}>
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+        <Notification
+          type="down"
+          title="Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+          detail="500000"
+        />
+        <Notification
+          type="up"
+          title="Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+          detail="250000"
+        />
+      </ScrollView>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 15,
     backgroundColor: "#fff"
   }
 });
