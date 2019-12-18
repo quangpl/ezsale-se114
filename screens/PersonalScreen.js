@@ -20,6 +20,7 @@ class PersonalScreen extends React.Component {
         }}
       >
         Nội dung của trang cá nhân
+        {this.props.items[0].name}
       </Text>
     );
  }
