@@ -2,6 +2,8 @@ import React from "react";
 import { ExpoConfigView } from "@expo/samples";
 import { ScrollView, StyleSheet, Text, FlatList } from "react-native";
 import data from "../mock-db/db.json"
+import { LinearGradient } from "expo-linear-gradient";
+
 import axios from "axios";
 import TextItem from "../components/TextItem";
 import Notification from "../components/Notification";
@@ -23,8 +25,17 @@ export default class NotifyScreen extends React.Component {
       });
   }
   static navigationOptions = {
-    title: "Thông báo"
-  };
+  title: "Thông báo",
+  headerTintColor:"white",
+  headerBackground: (
+    <LinearGradient
+      colors={["#237AE4", "#6C5CE7"]}
+      style={{ flex: 1, borderWidth: 0 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+    />
+  )
+};
 
   render() {
     const { NotifyScreen } = this.state;
