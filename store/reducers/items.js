@@ -13,8 +13,8 @@ const items = (state = initialState, action) => {
       return [
         ...state,
         {
-          id: action.item.id,
-          item: action.item,
+         
+          item: action.payload,
         }
       ];
     default:
