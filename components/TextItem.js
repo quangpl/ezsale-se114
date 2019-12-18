@@ -9,7 +9,7 @@ export default class TextItem extends React.Component {
       <View style={styles.container}>
         <View style={styles.right}>
           <View style={styles.info}>
-            <Text style={styles.infoName}>Chào mứng bạn</Text>
+            <Text style={styles.infoName}>Chào mừng bạn</Text>
           </View>
         </View>
       </View>
