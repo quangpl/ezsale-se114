@@ -14,7 +14,7 @@ import { Icon } from "react-native-elements";
 import SearchEngie from '../components/SearchEngine'
 import { MonoText } from '../components/StyledText';
 import Search from "../components/Search"
-import Topsearching from '../components/TopSearching'
+import VerticalProduct from '../components/VerticalProduct'
 import MostComparableProducts from '../components/MostComparableProducts'
 import { LinearGradient } from 'expo-linear-gradient';
 import { TextInput } from 'react-native';
@@ -24,8 +24,32 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView>
             <View style={styles.componentI}>
-              <Topsearching/>
-              <MostComparableProducts/>
+              <View style={styles.containerSearching}>
+                <Text style={styles.headerText}>Hot nhất</Text>
+                <View style={styles.componentHotItem}>
+                    <VerticalProduct />
+                    <VerticalProduct/>
+                    <VerticalProduct/>
+                </View>
+              </View>
+              
+              <View style={styles.containerMostComparable}>
+                <Text style={styles.headerText}>Mới nhất</Text>
+                <View style={styles.componentCover2Rows_Newest}>
+                  <View style={styles.componentCover1Rows_Newest}>
+                    <VerticalProduct/>
+                    <VerticalProduct/>
+                    <VerticalProduct/>
+                  </View>
+
+                  <View style={styles.componentCover1Rows_Newest}>
+                    <VerticalProduct/>
+                    <VerticalProduct/>
+                    <VerticalProduct/>
+                  </View>
+
+                </View>
+              </View>
             </View>
       </ScrollView>
   </View>
@@ -113,6 +137,52 @@ const styles = StyleSheet.create({
     alignSelf:"center",
 
 
-  }
+  },
+componentHotItem: {
+    marginTop:10,
+          backgroundColor: '#ffffff',
+          //borderRadius:50,
+          flexDirection: "row",
+      justifyContent:'space-around',
+      alignItems: 'center',
+
+        
+    },
+  containerSearching: {
+      marginTop:20,
+      padding:7,
+          backgroundColor: '#ffffff',
+          //borderRadius:50,
+          flexDirection: "column",
+  justifyContent:"space-between",
+
+        },
+    headerText:{
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight:20,
+    },
+    containerMostComparable: {
+      padding:10,
+      marginTop: 7,
+      backgroundColor: '#ffffff',
+      //borderRadius:50,
+      flexDirection: "column",
+      justifyContent: "space-between",
+
+    },
+    componentCover2Rows_Newest: {
+      flexDirection: "column",
+
+  },
+  componentCover1Rows_Newest: {
+    marginTop:10,
+    backgroundColor: '#ffffff',
+    //borderRadius:50,
+    flexDirection: "row",
+    justifyContent: 'space-around',
+    alignItems: 'center',
+
+},
   
 });
