@@ -7,6 +7,9 @@ import HomeScreen from '../screens/HomeScreen';
 import FollowScreen from '../screens/FollowScreen';
 import PersonalScreen from '../screens/PersonalScreen';
 import NotifyScreen from "../screens/NotifyScreen";
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+
 
 
 const config = Platform.select({
@@ -93,12 +96,51 @@ NotifyStack.navigationOptions = {
 
 NotifyStack.path = ""
 
+const LoginStack = createStackNavigator(
+  {
+    Login: LoginScreen
+  },
+  config
+);
+
+LoginStack.navigationOptions = {
+  tabBarLabel: "Login",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+    />
+  )
+};
+
+LoginStack.path = "";
+
+const RegisterStack = createStackNavigator(
+  {
+    Register: RegisterScreen
+  },
+  config
+);
+
+RegisterStack.navigationOptions = {
+  tabBarLabel: "Register",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+    />
+  )
+};
+
+RegisterStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   FollowStack,
   NotifyStack,
-  PersonalStack
+  PersonalStack,
+  LoginStack,
+  RegisterStack
 });
 
 tabNavigator.path = '';
