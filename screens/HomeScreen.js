@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { Icon } from "react-native-elements";
-
+import axios from "axios";
 import SearchEngie from '../components/SearchEngine'
 import { MonoText } from '../components/StyledText';
 import Search from "../components/Search"
@@ -18,8 +18,28 @@ import VerticalProduct from '../components/VerticalProduct'
 import MostComparableProducts from '../components/MostComparableProducts'
 import { LinearGradient } from 'expo-linear-gradient';
 import { TextInput } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
-export default function HomeScreen() {
+export default class HomeScreen extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state={
+        products:[]
+    };
+  }
+  componentDidMount(){
+    axios.get('http://localhost:3000/Hot')
+    .then(res=>{
+      this.setState({
+        products:res.data
+      })
+    })
+    .catch(error => {
+      console.error(error);
+      })
+  }
+render(){
+  const{products}=this.state;
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -27,9 +47,14 @@ export default function HomeScreen() {
               <View style={styles.containerSearching}>
                 <Text style={styles.headerText}>Hot nhất</Text>
                 <View style={styles.componentHotItem}>
-                    <VerticalProduct />
+                    {/* <VerticalProduct />
                     <VerticalProduct/>
-                    <VerticalProduct/>
+                    <VerticalProduct/> */}
+                    <FlatList
+                    data={products}
+                    renderItem={({products})=><VerticalProduct itemData={products}/>}
+                    keyExtractor={item=>`${products.id}`}
+                    />
                 </View>
               </View>
               
@@ -54,6 +79,7 @@ export default function HomeScreen() {
       </ScrollView>
   </View>
   );
+}
 }
 
 HomeScreen.navigationOptions = {
