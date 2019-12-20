@@ -1,48 +1,31 @@
 import React from "react";
-import {TextInput, View, StyleSheet ,Text} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Image, Button } from "react-native-elements";
+import {TextInput, View, StyleSheet ,Text, TouchableWithoutFeedback, Keyboard} from "react-native";
+import { Image, Button,CheckBox  } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 export default class LoginScreen extends React.Component {
   render(){
     return (
-      <View style={styles.container}>
-        <View style={styles.logo}>
-          <Image
-            source={require("../assets/images/cart.png")}
-            style={{ width: 70, height: 70 }}
-          />
-          <Text style={styles.slogan}>Catch sale and sale your money !</Text>
-        </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
 
-        <View style={styles.title}>
-          <Text style={styles.text}>Đăng nhập</Text>
-        </View>
+          <View style={styles.logo}>
+            <Image source={require("../assets/images/logo.png")} style={{ width: 120, height: 120 }}/>
+            <Text style={styles.slogan}>Catch sale and sale your money !</Text>
+          </View>
 
-        <TextInput style={styles.input} placeholder="Email" />
-        <TextInput style={styles.input} placeholder="Password" />
+          <View style={styles.inputBox}>
+            <TextInput style={styles.input} placeholder="Email" textContentType='emailAddress' keyboardType='email-address' />
+            <TextInput style={styles.input} placeholder="Password" secureTextEntry={true}  />
+          </View>
 
-        <View style={styles.btnGroup}>
-          <Button
-            buttonStyle={styles.btn}
-            size="large"
-            type="outline"
-            title="Đăng nhập"
-          />
-          <Button
-            buttonStyle={styles.btnReg}
-            size="large"
-            type="clear"
-            sty
-            titleStyle={{
-              color:"#fff"
-            }}
-            title="Đăng ký"
-          />
+          <View style={styles.btnGroup}>
+            <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng nhập" />
+            <Button  buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Đăng ký"/>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
   
@@ -59,20 +42,23 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   logo: {
-    flex: 0.5,
+    flex: 0.3,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignContent: "flex-end",
     alignItems: "center"
   },
 
-  text: {
-    color: "white",
-    fontSize: 22
-  },
   slogan: {
     color: "#959595",
     fontSize: 15
+  },
+
+  inputBox:{
+    flex: 0.25,
+    justifyContent: "flex-end",
+    alignContent: "flex-end",
+    flexDirection: "column",
   },
 
   input: {
@@ -85,18 +71,10 @@ const styles = StyleSheet.create({
     borderColor: "#189DFF",
     paddingLeft: 10
   },
-  title: {
-    color: "#fff",
+  
+  checkbox: {
     flex: 0.1,
     flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center"
-  },
-
-  userInfo: {
-    flex: 0.1,
-    flexDirection: "row"
   },
 
   btn: {
@@ -112,7 +90,9 @@ const styles = StyleSheet.create({
     backgroundColor:"#189DFF",
     color:"#fff"
   },
+
   btnGroup:{
+    flex: 0.35,
     marginTop:20,
   }
 });
