@@ -3,7 +3,7 @@ const ProductSchema = require("../schemas/product");
 let ProductModel = mongoose.model("Product", ProductSchema);
 let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
-
+const {NUMBER_OF_PRODUCT_HOT} = require("../utils/constant")
 ProductModel.add = async ({
   created_by,
   image,
@@ -11,7 +11,8 @@ ProductModel.add = async ({
   stock_price,
   discount_rate,
   channel,
-  url
+  url,
+  crawl_info
 }) => {
   let newProduct = new Product({
     created_by,
@@ -20,7 +21,8 @@ ProductModel.add = async ({
     stock_price,
     discount_rate,
     channel,
-    url
+    url,
+    crawl_info
   });
 
   await newProduct.save();
@@ -33,11 +35,21 @@ ProductModel.getByUserId = async (id) => {
    created_by: mongoose.Types.ObjectId(id)
  }).exec();
 };
-
-
-ProductModel.getAll = async () => {
-  return await ProductModel.find({}).exec();
+ProductModel.getById = async id => {
+  return await ProductModel.findById(id).exec();
 };
+
+
+ProductModel.getAll = async ({perPage,page}) => {
+
+const itemPerPage = perPage || 9; // results per page
+ 
+return await ProductModel.find({})
+  .skip(itemPerPage * page - itemPerPage)
+  .limit(itemPerPage).sort({
+      createdAt: -1
+    }).exec();
+                                  };
 
 
 ProductModel.getNewestProduct = async () => {
@@ -53,6 +65,7 @@ ProductModel.getHotestProduct = async () => {
     .sort({
       discount_rate: -1
     })
+    .limit(NUMBER_OF_PRODUCT_HOT)
     .exec();
 };
 

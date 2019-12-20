@@ -25,7 +25,7 @@ const ProductSchema = new Schema(
     },
     discount_rate: {
       type: Number,
-      default:0
+      default: 0
     },
     channel: {
       type: String,
@@ -34,6 +34,9 @@ const ProductSchema = new Schema(
     url: {
       type: String,
       required: true
+    },
+    crawl_info: {
+      type: Object,
     },
     history: {
       type: new Schema({

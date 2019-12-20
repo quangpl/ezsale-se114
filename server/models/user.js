@@ -4,6 +4,7 @@ let UserModel = mongoose.model("User", UserSchema);
 let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
 
+var randomstring = require("randomstring");
 
 UserModel.register = async ({
   name,
@@ -36,5 +37,19 @@ UserModel.login = async ({email, password }) => {
       return false;
   }
 };
+
+
+UserModel.updatePassword = async ({ email, password }) => {
+  return await UserModel.updateOne(
+    {
+      email
+    },
+    {
+      password: bcrypt.hashSync(password),
+      token: randomstring.generate(20)
+    }
+  ).exec();
+};
+
 
 module.exports = UserModel;
