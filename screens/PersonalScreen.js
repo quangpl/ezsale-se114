@@ -18,19 +18,57 @@ class PersonalScreen extends React.Component {
  render(){
     return (
       <View style={styles.container}>
+
         <View style={styles.userInfo}>
           <View style={styles.left}>
             <Avatar size="medium" rounded title="U" />
           </View>
+
           <View style={styles.right}>
-            <Text style={styles.name}>Dieu Linh Truong </Text>
-            <Text style={styles.name}>phanlequang99@gmail.com </Text>
+            <Text style={styles.font}>Dieu Linh Truong </Text>
+            <Text style={styles.font}>dieulinhtruong@gmail.com </Text>
           </View>
         </View>
+
         <View style={styles.point}>
           <Icon  name="star" type="font-awesome" color="#FF9933" />
           <Text style={styles.pointDetail}>128</Text>
         </View>
+
+        <View style={styles.userSetting}>
+          <View style={styles.left}>
+            <Icon  name="cogs" type="font-awesome" color="#199EFF" />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.font}>Cài đặt</Text>
+          </View>
+        </View>
+        <View style={styles.userSetting}>
+          <View style={styles.left}>
+            <Icon  name="exchange" type="font-awesome" color="#199EFF" />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.font}>Đổi mật khẩu</Text>
+          </View>
+        </View>
+        <View style={styles.userSetting}>
+          <View style={styles.left}>
+            <Icon  name="sign-out" type="font-awesome" color="#199EFF" />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.font}>Đăng xuất</Text>
+          </View>
+        </View>
+
+        <View style={styles.userSetting}>
+          <View style={styles.left}>
+            <Icon  name="phone" type="font-awesome" color="#199EFF" />
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.font}>Hỗ trợ</Text>
+          </View>
+        </View>
+        
       </View>
     );
  }
@@ -38,7 +76,7 @@ class PersonalScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#E5E5E5",
+    backgroundColor: "#fff",
     flex: 1,
     flexDirection: "column"
   },
@@ -62,7 +100,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#EDF3F4",
     borderBottomWidth: 1
   },
-  name: {
+  font: {
     fontSize: 16
   },
   point: {
@@ -71,22 +109,38 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    borderBottomColor: "#EDF3F4",
+    borderBottomWidth: 1
   },
   pointDetail: {
     fontSize: 30,
     color: "#FF9933"
-  }
+  },
+  userSetting:{
+    flex: 0.13,
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderBottomColor: "#EDF3F4",
+    borderBottomWidth: 1
+  },
+
 });
+
+
+
 
 const mapStateToProps = state =>({
   items : state.items
 
 })
 
+
+
 PersonalScreen.navigationOptions = {
   title: "Cá nhân",
   headerTintColor: "white",
+  
   headerBackground: (
     <LinearGradient
       colors={["#237AE4", "#6C5CE7"]}
