@@ -1,4 +1,6 @@
 const NUMBER_OF_PRODUCT_HOT = 9;
+const PERIOD_TIME_CHECK = 60*10*1000; //10 mins
 module.exports = {
-    NUMBER_OF_PRODUCT_HOT
-}
+  NUMBER_OF_PRODUCT_HOT,
+  PERIOD_TIME_CHECK
+};

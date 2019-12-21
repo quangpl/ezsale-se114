@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const {PERIOD_TIME_CHECK} = require("../utils/constant")
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
@@ -19,10 +19,6 @@ const ProductSchema = new Schema(
       type: Number,
       required: true
     },
-    stock_price: {
-      type: Number,
-      required: true
-    },
     discount_rate: {
       type: Number,
       default: 0
@@ -36,7 +32,11 @@ const ProductSchema = new Schema(
       required: true
     },
     crawl_info: {
-      type: Object,
+      type: Object
+    },
+    nextTimeCheck: {
+      type: Date,
+      default: Date.now() + PERIOD_TIME_CHECK
     },
     history: {
       type: new Schema({
