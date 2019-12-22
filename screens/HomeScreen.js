@@ -22,8 +22,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TextInput } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import {LoginScreen} from '../screens/LoginScreen';
+var isLogin=true;
 export default class HomeScreen extends React.Component{
+  static navigationOptions= ({navigation}) =>{
+    return{
+      isLogin:navigation.getParam('value')};
+    };
+
   constructor(props) {
     super(props);
     this.state={
@@ -60,9 +66,12 @@ export default class HomeScreen extends React.Component{
       .catch(error => {
         console.error(error);
         })
-  }
-render(){
+    }
+
+  render(){
   const{productsHot, productsNew}=this.state;
+  if(isLogin)
+  {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -99,10 +108,10 @@ render(){
                               <Col><VerticalProduct key={item.id} itemData={item}/></Col>
                             )
                           })} */}
-                         <Row size={3}>
+                         <Row size={1}>
                            {this.state.productsNew.map(e=>{
                              return (
-                              <Col size={1} style={{
+                              <Col size={3} style={{
                                 backgroundColor:"red"
                               }}><Text>asas</Text>
                               <VerticalProduct itemData={{
@@ -121,9 +130,14 @@ render(){
             </View>
       </ScrollView>
   </View>
-  );
-}
-}
+   );
+  }
+  else
+  {
+    <LoginScreen/>
+  }
+  }
+ }
 
 HomeScreen.navigationOptions = {
   headerStyle: {

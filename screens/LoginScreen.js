@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginScreen extends React.Component {
   render(){
+    const navigation = this.props
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
@@ -21,8 +22,10 @@ export default class LoginScreen extends React.Component {
           </View>
 
           <View style={styles.btnGroup}>
-            <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng nhập" />
-            <Button  buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Đăng ký"/>
+            <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng nhập" onPress={() => navigation.navigate('HomeScreen',
+            {value:true})}
+            />
+            <Button buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Đăng ký"/>
           </View>
         </View>
       </TouchableWithoutFeedback>
