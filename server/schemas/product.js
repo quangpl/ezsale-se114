@@ -38,6 +38,9 @@ const ProductSchema = new Schema(
       type: Date,
       default: Date.now() + PERIOD_TIME_CHECK
     },
+    followers: {
+      type: [String],
+    },
     history: {
       type: new Schema({
         updated_at: {

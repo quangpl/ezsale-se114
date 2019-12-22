@@ -7,7 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "mock-server": "json-server ./data/ShowingItem.json"
+    "mock-server": "json-server ./data/ShowingItem.json -p 4000"
   },
   "jest": {
     "preset": "jest-expo"
