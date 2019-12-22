@@ -9,37 +9,60 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import Carousel from 'react-native-snap-carousel';
+
 import { Icon } from "react-native-elements";
 import axios from "axios";
 import SearchEngie from '../components/SearchEngine'
 import { MonoText } from '../components/StyledText';
 import Search from "../components/Search"
 import VerticalProduct from '../components/VerticalProduct'
-import MostComparableProducts from '../components/MostComparableProducts'
 import { LinearGradient } from 'expo-linear-gradient';
 import { TextInput } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default class HomeScreen extends React.Component{
   constructor(props) {
     super(props);
     this.state={
-        products:[]
+        productsNew:[],
+        productsHot:[]
     };
   }
+
+  _renderItem = ({item, index}) => {
+    return (
+      <VerticalProduct key={item.id} itemData={item}/>
+    );
+}
+
   componentDidMount(){
+    console.log("init");
     axios.get('http://localhost:3000/Hot')
     .then(res=>{
+      console.log(res.data);
       this.setState({
-        products:res.data
+        productsHot:res.data
       })
     })
     .catch(error => {
       console.error(error);
       })
+
+    axios.get('http://localhost:3000/New')
+      .then(res=>{
+        this.setState({
+          productsNew:res.data
+        })
+      })
+      .catch(error => {
+        console.error(error);
+        })
   }
 render(){
-  const{products}=this.state;
+  const{productsHot, productsNew}=this.state;
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -50,31 +73,51 @@ render(){
                     {/* <VerticalProduct />
                     <VerticalProduct/>
                     <VerticalProduct/> */}
-                    <FlatList
-                    data={products}
-                    renderItem={({products})=><VerticalProduct itemData={products}/>}
-                    keyExtractor={item=>`${products.id}`}
-                    />
+                     <Carousel
+              ref={(c) => { this._carousel = c; }}
+              data={this.state.productsHot}
+              renderItem={this._renderItem}
+              sliderWidth={300}
+              itemWidth={100}
+            />
+                    {/* <FlatList
+                    data={productsHot}
+                    renderItem={({item})=><VerticalProduct itemData={item}/>}
+                    keyExtractor={item=>`${productsHot.id}`}
+                    contentContainerStyle={{marginTop:10, backgroundColor: '#ffffff',flexDirection: "row",justifyContent:'space-around',alignItems: 'center',}}
+                    /> */}
                 </View>
               </View>
               
-              <View style={styles.containerMostComparable}>
+               <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
                 <View style={styles.componentCover2Rows_Newest}>
-                  <View style={styles.componentCover1Rows_Newest}>
-                    <VerticalProduct/>
-                    <VerticalProduct/>
-                    <VerticalProduct/>
-                  </View>
-
-                  <View style={styles.componentCover1Rows_Newest}>
-                    <VerticalProduct/>
-                    <VerticalProduct/>
-                    <VerticalProduct/>
-                  </View>
-
+                      <Grid>
+                      
+                          {/* {this.state.productsHot.map(item=>{
+                            return (
+                              <Col><VerticalProduct key={item.id} itemData={item}/></Col>
+                            )
+                          })} */}
+                         <Row size={3}>
+                           {this.state.productsNew.map(e=>{
+                             return (
+                              <Col size={1} style={{
+                                backgroundColor:"red"
+                              }}><Text>asas</Text>
+                              <VerticalProduct itemData={{
+                                 "name":"May do sach",
+                                 "infoPrice":350000,
+                                 "infoDiscount": 25000,
+                                 "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
+                              }}/>
+                              </Col>
+                             )
+                           })}
+                       </Row>
+                      </Grid>
                 </View>
-              </View>
+              </View> 
             </View>
       </ScrollView>
   </View>

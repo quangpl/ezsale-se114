@@ -3,22 +3,36 @@
     {
         "id":1,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":2,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":3,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
+        "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
+    },
+    {
+        "id":4,
+        "name":"May do sach",
+        "infoPrice":350000,
+        "infoDiscount": 25000,
+        "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
+    },
+    {
+        "id":5,
+        "name":"May do sach",
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     }
 ],
@@ -27,43 +41,43 @@
     {
         "id":1,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":2,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":3,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25.00,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":4,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":5,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     },
     {
         "id":6,
         "name":"May do sach",
-        "infoPrice":35.0000,
-        "infoDiscount": 25.000,
+        "infoPrice":350000,
+        "infoDiscount": 25000,
         "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
     }
 ]

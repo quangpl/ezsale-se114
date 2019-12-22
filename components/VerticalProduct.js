@@ -15,7 +15,7 @@ export default function VerticalProduct(props) {
                         <View style={styles.Item}>
                                 <Image
                             style={{ width: 90, height: 90 }}
-                            source={ {uri:{}}}
+                            source={{uri:itemData.url}}
                                 />
                                 <View style={styles.info}>
                                         <Text style={styles.infoName}>
