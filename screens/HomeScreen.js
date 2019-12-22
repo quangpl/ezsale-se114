@@ -1,5 +1,5 @@
-import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import * as WebBrowser from 'expo-web-browser';
+import React from 'react';
 import {
   Image,
   Platform,
@@ -8,62 +8,135 @@ import {
   Text,
   TouchableOpacity,
   View,
-  InputAccessoryView
-} from "react-native";
-import { Icon, Overlay, Input, Button } from "react-native-elements";
-import IconFont from "react-native-vector-icons/FontAwesome";
+} from 'react-native';
 
-import SearchEngie from "../components/SearchEngine";
-import { MonoText } from "../components/StyledText";
-import Search from "../components/Search";
-import Topsearching from "../components/TopSearching";
-import MostComparableProducts from "../components/MostComparableProducts";
-import { LinearGradient } from "expo-linear-gradient";
-import { TextInput } from "react-native";
+import Carousel from 'react-native-snap-carousel';
 
-export default class HomeScreen extends React.Component {
+import { Icon } from "react-native-elements";
+import axios from "axios";
+import SearchEngie from '../components/SearchEngine'
+import { MonoText } from '../components/StyledText';
+import Search from "../components/Search"
+import VerticalProduct from '../components/VerticalProduct'
+import { LinearGradient } from 'expo-linear-gradient';
+import { TextInput } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { Col, Row, Grid } from "react-native-easy-grid";
+import {LoginScreen} from '../screens/LoginScreen';
+import { createStackNavigator } from 'react-navigation-stack';
+
+var isLogin=true;
+var id;
+export default class HomeScreen extends React.Component{
+  static navigationOptions= ({navigation}) =>{
+    return{
+      isLogin:navigation.getParam('value')};
+    };
+
   constructor(props) {
     super(props);
-    this.state = {
-      isVisible: false
+    this.state={
+        productsNew:[],
+        productsHot:[]
     };
   }
-  static onClickModal = () => {
-    alert("dasd");
-  };
-  render() {
+
+  _renderItem = ({item, index}) => {
     return (
-      <View style={styles.container}>
-        {/* <Overlay
-          isVisible={this.state.isVisible}
-          windowBackgroundColor="rgba(255, 255, 255, .5)"
-          overlayBackgroundColor="#fff"
-          width="auto"
-          height="auto"
-        >
-          <Input
-            placeholder="Nhập link sản phẩm"
-            inputContainerStyle={{
-              height: 100,
-              width: "100%"
-            }}
-          />
-          <Button
-            icon={<IconFont name="check" size={15} color="white" />}
-            title="Hoàn tất"
-            style={{width:20}}
-          />
-        </Overlay> */}
-        <ScrollView>
-          <View style={styles.componentI}>
-            <Topsearching />
-            <MostComparableProducts />
-          </View>
-        </ScrollView>
-      </View>
+      <VerticalProduct key={item.id} itemData={item}/>
+    );
+}
+
+  componentDidMount(){
+    console.log("init");
+    axios.get('http://localhost:3000/Hot')
+    .then(res=>{
+      console.log(res.data);
+      this.setState({
+        productsHot:res.data
+      })
+    })
+    .catch(error => {
+      console.error(error);
+      })
+
+    axios.get('http://localhost:3000/New')
+      .then(res=>{
+        this.setState({
+          productsNew:res.data
+        })
+      })
+      .catch(error => {
+        console.error(error);
+        })
+    }
+
+  render(){
+  const{productsHot, productsNew}=this.state;
+  const navigation = this.props.navigation
+  if(isLogin)
+  {
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+            <View style={styles.componentI}>
+              <View style={styles.containerSearching}>
+                <Text style={styles.headerText}>Hot nhất</Text>
+                <View style={styles.componentHotItem}>
+                    {/* <VerticalProduct />
+                    <VerticalProduct/>
+                    <VerticalProduct/> */}
+                     <Carousel
+              ref={(c) => { this._carousel = c; }}
+              data={this.state.productsHot}
+              renderItem={this._renderItem}
+              sliderWidth={300}
+              itemWidth={100}
+            />
+                    {/* <FlatList
+                    data={productsHot}
+                    renderItem={({item})=><VerticalProduct itemData={item}/>}
+                    keyExtractor={item=>`${productsHot.id}`}
+                    contentContainerStyle={{marginTop:10, backgroundColor: '#ffffff',flexDirection: "row",justifyContent:'space-around',alignItems: 'center',}}
+                    /> */}
+                </View>
+              </View>
+              
+               <View style={styles.containerMostComparable}>
+                <Text style={styles.headerText}>Mới nhất</Text>
+                      <FlatList
+                      data={productsNew}
+                      keyExtractor={productsNew.id}
+                      contentContainerStyle={styles.containerFlat}     //has to be unique   
+                      renderItem={({item}) =>
+                    <TouchableOpacity onPress={() => 
+                      console.log(item.id)
+                    }>
+                      <View style={styles.wrapper} >
+                          <VerticalProduct itemData={item} />
+                      </View>
+                    </TouchableOpacity>
+                    } //method to render the data in the way you want using styling u need
+                      horizontal={false}
+                      numColumns={3}
+                      onEndReachedThreshold={0.1}
+                      
+                      
+                      />
+              </View> 
+            </View>
+      </ScrollView> 
+  </View>
+   );
+  }
+  else
+  {
+    return(
+      <LoginScreen/>
     );
   }
-}
+  }
+ }
 
 HomeScreen.navigationOptions = {
   headerStyle: {
@@ -75,8 +148,8 @@ HomeScreen.navigationOptions = {
         flexDirection: "row",
         width: "100%",
         padding: 10,
-        alignContent: "center",
-        alignItems: "center",
+        alignContent:"center",
+        alignItems:"center",
         justifyContent: "space-around"
       }}
     >
@@ -93,14 +166,12 @@ HomeScreen.navigationOptions = {
       ></TextInput>
       <Icon
         style={{
-          flex: 0.1
+          flex:0.1
         }}
         name="plus"
         type="font-awesome"
         color="#fff"
-        onPress={() => {
-          HomeScreen.onClickModal();
-        }}
+        onPress={() => console.log("hello")}
       />
     </View>
   ),
@@ -124,23 +195,84 @@ HomeScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     //flex: 0.5,
-    backgroundColor: "#E5E5E5",
-    justifyContent: "space-between"
+    backgroundColor: '#E5E5E5',
+    justifyContent:'space-between',
     //flex:1,
   },
-  componentI: {
-    justifyContent: "space-between"
+  componentI:
+  {
+    justifyContent:'space-between',
+
   },
-  scrollView: {
-    flex: 1,
-    flexDirection: "column"
+  scrollView:
+  {
+    flex:1,
+    flexDirection:"column"
   },
-  headerStyle: {
-    justifyContent: "center",
+  headerStyle:
+  {
+    justifyContent:'center',
     fontSize: 20,
     fontWeight: "bold",
     overflow: "hidden",
-    alignContent: "center",
-    alignSelf: "center"
-  }
+    alignContent:"center",
+    alignSelf:"center",
+
+
+  },
+componentHotItem: {
+    marginTop:10,
+          backgroundColor: '#ffffff',
+          //borderRadius:50,
+          flexDirection: "row",
+      justifyContent:'space-around',
+      alignItems: 'center',
+
+        
+    },
+  containerSearching: {
+      marginTop:20,
+      padding:7,
+          backgroundColor: '#ffffff',
+          //borderRadius:50,
+          flexDirection: "column",
+  justifyContent:"space-between",
+
+        },
+    headerText:{
+    fontSize: 16,
+    fontWeight: "400",
+    lineHeight:20,
+    },
+    containerMostComparable: {
+      padding:10,
+      marginTop: 7,
+      backgroundColor: '#ffffff',
+      //borderRadius:50,
+      flexDirection: "column",
+      justifyContent: "space-between",
+
+    },
+    componentCover2Rows_Newest: {
+      flexDirection: "column",
+
+  },
+  componentCover1Rows_Newest: {
+    marginTop:10,
+    backgroundColor: '#ffffff',
+    //borderRadius:50,
+    flexDirection: "row",
+    justifyContent: 'space-around',
+    alignItems: 'center',
+
+},
+wrapper:{
+  flex:1,
+  paddingHorizontal:8
+},
+containerFlat:{
+paddingHorizontal:8,
+paddingVertical: 10
+}
+  
 });

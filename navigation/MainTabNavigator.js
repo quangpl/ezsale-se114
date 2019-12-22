@@ -9,8 +9,7 @@ import PersonalScreen from '../screens/PersonalScreen';
 import NotifyScreen from "../screens/NotifyScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-
-
+import ItemDetails from "../screens/ItemDetails";
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -31,7 +30,7 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-home${focused ? "" : "-outline"}`
+          ? `md-home${focused ? "" : "-outline"}`
           : "md-home"
       }
     />
@@ -134,13 +133,32 @@ RegisterStack.navigationOptions = {
 
 RegisterStack.path = "";
 
+const ItemDetailsStack = createStackNavigator(
+  {
+    ItemDetail: ItemDetails
+  },
+  config
+);
+
+ItemDetailsStack.navigationOptions = {
+  tabBarLabel: "ItemDetails",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+    />
+  )
+};
+
+ItemDetailsStack.path = "";
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   FollowStack,
   NotifyStack,
   PersonalStack,
   LoginStack,
-  RegisterStack
+  RegisterStack,
+  ItemDetailsStack
 });
 
 tabNavigator.path = '';
