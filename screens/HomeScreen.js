@@ -23,7 +23,10 @@ import { TextInput } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {LoginScreen} from '../screens/LoginScreen';
+import { createStackNavigator } from 'react-navigation-stack';
+
 var isLogin=true;
+var id;
 export default class HomeScreen extends React.Component{
   static navigationOptions= ({navigation}) =>{
     return{
@@ -70,6 +73,7 @@ export default class HomeScreen extends React.Component{
 
   render(){
   const{productsHot, productsNew}=this.state;
+  const navigation = this.props.navigation
   if(isLogin)
   {
   return (
@@ -100,47 +104,28 @@ export default class HomeScreen extends React.Component{
               
                <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
-                {/* <View style={styles.componentCover2Rows_Newest}>
-                      <Grid>
-                      
-                          {this.state.productsHot.map(item=>{
-                            return (
-                              <Col><VerticalProduct key={item.id} itemData={item}/></Col>
-                            )
-                          })}
-                         <Row size={1}>
-                           {this.state.productsNew.map(e=>{
-                             return (
-                              <Col size={3} style={{
-                                backgroundColor:"red"
-                              }}><Text>asas</Text>
-                              <VerticalProduct itemData={{
-                                 "name":"May do sach",
-                                 "infoPrice":350000,
-                                 "infoDiscount": 25000,
-                                 "url": "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
-                              }}/>
-                              </Col>
-                             )
-                           })}
-                       </Row>
-                      </Grid>
-                </View> */}
                       <FlatList
                       data={productsNew}
                       keyExtractor={productsNew.id}
                       contentContainerStyle={styles.containerFlat}     //has to be unique   
                       renderItem={({item}) =>
-                    <View style={styles.wrapper}>
-                        <VerticalProduct itemData={item}/>
-                    </View>
+                    <TouchableOpacity onPress={() => 
+                      console.log(item.id)
+                    }>
+                      <View style={styles.wrapper} >
+                          <VerticalProduct itemData={item} />
+                      </View>
+                    </TouchableOpacity>
                     } //method to render the data in the way you want using styling u need
                       horizontal={false}
                       numColumns={3}
+                      onEndReachedThreshold={0.1}
+                      
+                      
                       />
               </View> 
             </View>
-      </ScrollView>
+      </ScrollView> 
   </View>
    );
   }
