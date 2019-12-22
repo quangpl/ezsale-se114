@@ -100,14 +100,14 @@ export default class HomeScreen extends React.Component{
               
                <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
-                <View style={styles.componentCover2Rows_Newest}>
+                {/* <View style={styles.componentCover2Rows_Newest}>
                       <Grid>
                       
-                          {/* {this.state.productsHot.map(item=>{
+                          {this.state.productsHot.map(item=>{
                             return (
                               <Col><VerticalProduct key={item.id} itemData={item}/></Col>
                             )
-                          })} */}
+                          })}
                          <Row size={1}>
                            {this.state.productsNew.map(e=>{
                              return (
@@ -125,7 +125,19 @@ export default class HomeScreen extends React.Component{
                            })}
                        </Row>
                       </Grid>
-                </View>
+                </View> */}
+                      <FlatList
+                      data={productsNew}
+                      keyExtractor={productsNew.id}
+                      contentContainerStyle={styles.containerFlat}     //has to be unique   
+                      renderItem={({item}) =>
+                    <View style={styles.wrapper}>
+                        <VerticalProduct itemData={item}/>
+                    </View>
+                    } //method to render the data in the way you want using styling u need
+                      horizontal={false}
+                      numColumns={3}
+                      />
               </View> 
             </View>
       </ScrollView>
@@ -134,7 +146,9 @@ export default class HomeScreen extends React.Component{
   }
   else
   {
-    <LoginScreen/>
+    return(
+      <LoginScreen/>
+    );
   }
   }
  }
@@ -267,5 +281,13 @@ componentHotItem: {
     alignItems: 'center',
 
 },
+wrapper:{
+  flex:1,
+  paddingHorizontal:8
+},
+containerFlat:{
+paddingHorizontal:8,
+paddingVertical: 10
+}
   
 });
