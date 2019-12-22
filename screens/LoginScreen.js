@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   btnGroup:{
     flex: 0.35,
     marginTop:20,
+    alignContent:'space-between'
   }
 });
 

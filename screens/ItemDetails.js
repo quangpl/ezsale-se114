@@ -1,14 +1,26 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image,Button} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
+import {LineChart} from "react-native-chart-kit";
+import { Button } from 'react-native-elements';
+import {Dimensions} from 'react-native';
 
 export default class ItemDetails extends React.Component {
     render(){
         const navigation = this.props.navigation
+        const line = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [
+              {
+                data: [20, 45, 28, 80, 99, 43],
+                strokeWidth: 2, // optional
+              },
+            ],
+          };
         return (
-        <View style={{flexDirection:'column'}}>
+        <View style={{flexDirection:'column',alignContent:'space-between', paddingTop:30}}>
             <View style={styles.image}>
             <Image
                 style={{ width: 150, height: 150 }}
@@ -28,36 +40,72 @@ export default class ItemDetails extends React.Component {
                 </View>
             </View> 
             <View style={styles.btnGroup}>
-                <View style={styles.groupBuying} onPress={() => navigation.navigate()}>
-                <Icon
-                name="shopping-cart"
-                type="font-awesome"
-                color="#199EFF"
-                iconStyle={{paddingTop:5}}
+             
+                <Button 
+                icon={
+                    <Icon
+                    name="shopping-cart"
+                    type="font-awesome"
+                    color="#fff"
+                    iconStyle={{paddingBottom:5,paddingRight:5}}
+                                                        />
+                  }
+                  iconLeft
+                buttonStyle={styles.btn} size="large" type="outline" title="Mua" titleStyle={{ color:"#fff"}}
                 />
-                <Button buttonStyle={styles.btn} size="large" type="outline" title="Mua"
-                />
-                </View>
-                <Button buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Theo Dõi"/>
                 
-          </View>
-
-
+                <Button buttonStyle={styles.btnReg} size="large" type="clear" title="Theo Dõi"/>
+            </View>  
+            <View>
+            <LineChart
+                data={{
+                labels: ["January", "February", "March", "April", "May", "June"],
+                datasets: [
+                    {
+                    data: [
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100,
+                        Math.random() * 100
+                    ]
+                    }
+                ]
+                }}
+                width={Dimensions.get("window").width} // from react-native
+                height={220}
+                yAxisLabel={"$"}
+                yAxisSuffix={"k"}
+                chartConfig={{
+                //backgroundColor: "#e26a00",
+                backgroundGradientFrom: "#0895fc",
+                backgroundGradientTo: "#61bcff",
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                    //borderRadius: 16
+                },
+                propsForDots: {
+                    r: "6",
+                    strokeWidth: "2",
+                    stroke: "#ffa726"
+                }
+                }}
+                bezier
+                style={{
+                marginVertical: 8,
+                //borderRadius: 16
+                }}
+            />
+        </View>
       </View>           
         );
 } 
 }
 ItemDetails.navigationOptions = {
-    title: "Sản phẩm",
-    headerTintColor:"white",
-    headerBackground: (
-      <LinearGradient
-        colors={["#237AE4", "#6C5CE7"]}
-        style={{ flex: 1, borderWidth: 0 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      />
-    )
+    header: null
   };
   const styles = StyleSheet.create({
     container: {
@@ -67,17 +115,20 @@ ItemDetails.navigationOptions = {
     },
     btn: {
         borderRadius: 25,
-        width: 200,
-        alignSelf: "center"
-
+        width: 150,
+        alignSelf: "center",
+        borderWidth:2,
+        alignContent:'space-between',
+        color:"#fff",
+        backgroundColor:"#189DFF",
       },
       btnReg:{
         borderRadius: 25,
-        width: 200,
+        width: 150,
         alignSelf: "center",
-        marginTop:20,
-        backgroundColor:"#189DFF",
-        color:"#fff"
+        //marginTop:20,
+        borderWidth:2,
+        marginLeft:30
       },
     
       btnGroup:{
@@ -85,7 +136,8 @@ ItemDetails.navigationOptions = {
         marginTop:20,
         flexDirection:'row',
         alignSelf:'center',
-        paddingVertical:30,
+        paddingHorizontal:50,
+        alignContent:'space-between',
       },
       image: {
         alignSelf:'center',
@@ -121,8 +173,8 @@ ItemDetails.navigationOptions = {
       },
       groupBuying:
       {
-        flexDirection:'row',
+        //flexDirection:'row',
         borderRadius: 25,
-        width: 200,
+        //width: 200,
       }
     });
