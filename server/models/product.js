@@ -3,7 +3,7 @@ const ProductSchema = require("../schemas/product");
 let ProductModel = mongoose.model("Product", ProductSchema);
 let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
-const {NUMBER_OF_PRODUCT_HOT} = require("../utils/constant")
+const {NUMBER_OF_PRODUCT_HOT,PERIOD_TIME_CHECK} = require("../utils/constant")
 ProductModel.add = async ({
   created_by,
   image,
@@ -33,8 +33,31 @@ ProductModel.getByUserId = async (id) => {
    created_by: mongoose.Types.ObjectId(id)
  }).exec();
 };
+
+ProductModel.updateHistory = async ({ _id, updated_at ,price}) => {
+  return await ProductModel.updateOne(
+    {
+      _id: mongoose.Types.ObjectId(_id)
+    },
+    {
+      $push: {
+        history: {
+          updated_at,
+          price
+        },
+        nextTimeCheck: Date.now() + PERIOD_TIME_CHECK
+      }
+    }
+  ).exec();
+};
 ProductModel.getById = async id => {
   return await ProductModel.findById(id).exec();
+};
+
+ProductModel.getProductToCrawl = async () => {
+  return await ProductModel.findOne({
+    nextTimeCheck : Data.now()
+  }).exec();
 };
 
 
@@ -50,11 +73,21 @@ return await ProductModel.find({})
                                   };
 
 
-ProductModel.getNewestProduct = async () => {
-  return await ProductModel.find({})
+ProductModel.getNewestProduct = async ({page,perPage}) => {
+
+  if (page < 0 || perPage === 0) {
+    page=1;
+    perPage=10;
+  }
+
+  let query={};
+  query.skip = perPage * (page - 1);
+  query.limit = perPage;
+  
+  return await ProductModel.find({}).skip(query.skip)
     .sort({
       createdAt: -1
-    })
+    }).limit(query.limit)
     .exec();
 };
 

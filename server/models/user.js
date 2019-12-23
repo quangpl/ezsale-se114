@@ -11,14 +11,21 @@ UserModel.register = async ({
   email,
   password,
 }) => {
-  let newUser = new User({
+  let newUser = new UserModel({
     name,
     email,
-    password: bcrypt.hashSync(password, DEFAULT_SALT_ROUND),
+    password: bcrypt.hashSync(password, DEFAULT_SALT_ROUND)
   });
 
   await newUser.save();
   return newUser;
+};
+
+UserModel.isRegister = async (email) => {
+  const user = await UserModel.findOne({
+    email
+  }).exec();
+  return user ? true : false;
 };
 
 UserModel.login = async ({email, password }) => {
@@ -49,6 +56,13 @@ UserModel.updatePassword = async ({ email, password }) => {
       token: randomstring.generate(20)
     }
   ).exec();
+};
+
+
+UserModel.getByToken = async (token) => {
+  return await UserModel.findOne({
+    token
+  }).exec();
 };
 
 

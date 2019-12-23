@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var cors = require("cors");
 
 var logger = require('morgan');
-
+const {MONGODB} = require("./utils/constant");
+const mongoose = require("mongoose");
 var apiRouter = require('./api/index');
 var debug = require("debug")("server:server");
 var http = require("http");
@@ -17,6 +18,20 @@ app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+//connect db
+
+mongoose.connect(
+  MONGODB,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function(error) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Connect to database successfully!");
+    }
+  }
+);
 
 app.use(logger('dev'));
 app.use(express.json());

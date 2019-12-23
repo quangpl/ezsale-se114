@@ -1,4 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
+import { AsyncStorage } from "react-native";
+
+
 import React from 'react';
 import {
   Image,
@@ -9,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { connect } from "react-redux";
 
 import Carousel from 'react-native-snap-carousel';
 
@@ -25,18 +29,17 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {LoginScreen} from '../screens/LoginScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 
-var id;
-export default class HomeScreen extends React.Component{
-  static navigationOptions= ({navigation}) =>{
-    return{
-      isLogin:navigation.getParam('value')};
-    };
-
+import store from "../store"
+import {addItem, login, auth} from "../store/actions"
+import UserService from "../services/user"
+ class HomeScreen extends React.Component{
+  
   constructor(props) {
     super(props);
     this.state={
         productsNew:[],
-        productsHot:[]
+        productsHot:[],
+        isLogin : false
     };
   }
 
@@ -46,36 +49,41 @@ export default class HomeScreen extends React.Component{
     );
 }
 
-  componentDidMount(){
-    console.log("init");
-    axios.get('http://localhost:4000/Hot')
-    .then(res=>{
-      console.log(res.data);
-      this.setState({
-        productsHot:res.data
-      })
-    })
-    .catch(error => {
-      console.error(error);
-      })
+  async componentDidMount(){
+    const token = await AsyncStorage.getItem("token");
+    if(token){
+      const user = new UserService();
+      const authInfo = await user.auth();
+      //console.log(authInfo);
+     // store.dispatch(auth(authInfo));
+    }
+    // console.log("init");
+    // axios.get('http://localhost:3000/Hot')
+    // .then(res=>{
+    //   console.log(res.data);
+    //   this.setState({
+    //     productsHot:res.data
+    //   })
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    //   })
 
-    axios.get('http://localhost:4000/New')
-      .then(res=>{
-        this.setState({
-          productsNew:res.data
-        })
-      })
-      .catch(error => {
-        console.error(error);
-        })
+    // axios.get('http://localhost:3000/New')
+    //   .then(res=>{
+    //     this.setState({
+    //       productsNew:res.data
+    //     })
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //     })
+
     }
 
   render(){
   const{productsHot, productsNew}=this.state;
   const navigation = this.props.navigation
-  if(navigation.getParam('value'))
-  {
-
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -102,7 +110,7 @@ export default class HomeScreen extends React.Component{
                 </View>
               </View>
               
-               <View style={styles.containerMostComparable}>
+               {/* <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
                       <FlatList
                       data={productsNew}
@@ -125,15 +133,11 @@ export default class HomeScreen extends React.Component{
                       
                       
                       />
-              </View> 
+              </View>  */}
             </View>
       </ScrollView> 
   </View>
    );
-  }
-  else
-  {
-  }
   }
  }
 
@@ -190,6 +194,7 @@ HomeScreen.navigationOptions = {
     fontWeight: "bold"
   }
 };
+export default connect()(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

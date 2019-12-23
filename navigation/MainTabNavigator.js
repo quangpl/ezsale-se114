@@ -20,8 +20,7 @@ const HomeStack = createStackNavigator(
   {
     Login:LoginScreen,
     Home: HomeScreen,
-    Register:RegisterScreen,
-    ItemDetail:ItemDetails,
+    Register: RegisterScreen
   },
   config
 );
@@ -100,7 +99,7 @@ NotifyStack.path = ""
 
 const LoginStack = createStackNavigator(
   {
-    Login: LoginScreen
+    Login: LoginScreen,
   },
   config
 );
@@ -117,24 +116,24 @@ LoginStack.navigationOptions = {
 
 LoginStack.path = "";
 
-const RegisterStack = createStackNavigator(
-  {
-    Register: RegisterScreen
-  },
-  config
-);
+// const RegisterStack = createStackNavigator(
+//   {
+//     Register: RegisterScreen,
+//   },
+//   config
+// );
 
-RegisterStack.navigationOptions = {
-  tabBarLabel: "Register",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
-    />
-  )
-};
+// RegisterStack.navigationOptions = {
+//   tabBarLabel: "Register",
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+//     />
+//   )
+// };
 
-RegisterStack.path = "";
+//RegisterStack.path = "";
 
 const ItemDetailsStack = createStackNavigator(
   {
@@ -159,9 +158,8 @@ const tabNavigator = createBottomTabNavigator({
   FollowStack,
   NotifyStack,
   PersonalStack,
-  //LoginStack,
- // RegisterStack,
-  //ItemDetailsStack
+  LoginStack,
+  ItemDetailsStack,
 });
 
 tabNavigator.path = '';

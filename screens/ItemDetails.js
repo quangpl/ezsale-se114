@@ -112,7 +112,7 @@ export default class ItemDetails extends React.Component {
                 ]
                 }}
                 width={Dimensions.get("window").width} // from react-native
-                height={220}
+                height={230}
                 yAxisLabel={"$"}
                 yAxisSuffix={"k"}
                 chartConfig={{
@@ -157,7 +157,6 @@ ItemDetails.navigationOptions = {
         alignSelf: "center",
         borderWidth:2,
         alignContent:'space-between',
-        color:"#fff",
         backgroundColor:"#189DFF",
       },
       btnReg:{

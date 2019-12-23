@@ -22,9 +22,9 @@ const UserSchema = new Schema(
       required: true
     },
     token: {
-      type: Number,
+      type: String,
       required: true,
-      default:randomstring.generate(20),
+      default:randomstring.generate(20) + Date.now(),
     },
   },
   {

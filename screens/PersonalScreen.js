@@ -1,79 +1,141 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text , ToastAndroid} from "react-native";
 import { ExpoConfigView } from "@expo/samples";
 import {connect} from "react-redux";
-import { Avatar,Icon } from "react-native-elements";
-import {StyleSheet, View} from "react-native";
+import { Avatar,Icon,Button } from "react-native-elements";
+import {StyleSheet, View, TouchableOpacity} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import store from "../store"
+import UserService from "../services/user"
+import { addItem, login, auth,logout } from "../store/actions";
+import { withNavigationFocus } from "react-navigation";
 
 class PersonalScreen extends React.Component {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
    * we just wanted to give you a quick view of your config.
    */
-
-   componentDidMount(){
-      console.log(this.props.items);
-   }
- render(){
-  const navigation = this.props.navigation
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      user: {}
+    };
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.isFocused) {
+      console.log(this.props.user.authInfo);
+        if (!this.props.user.authInfo) {
+          alert("Vui lòng đăng nhập để sử dụng tính năng này");
+          this.props.navigation.navigate("Login");
+          return false;
+        }
+    }
+  }
+  // componentDidMount() {
+  //   //console.log(this.props.user.authInfo.payload);
+  //   console.log(this.props.user.authInfo);
+  //   if (!this.props.user.authInfo) {
+  //     alert("Vui lòng đăng nhập để sử dụng tính năng này");
+  //     this.props.navigation.navigate("Login");
+  //     return false;
+  //   }
+  // }
+  render() {
     return (
       <View style={styles.container}>
+        {this.props.user.authInfo ? (
+          <>
+            <View style={styles.userInfo}>
+              <View style={styles.left}>
+                <Avatar size="medium" rounded title="U" />
+              </View>
 
-        <View style={styles.userInfo}>
-          <View style={styles.left}>
-            <Avatar size="medium" rounded title="U" />
-          </View>
+              <View style={styles.right}>
+                <Text style={styles.font}>
+                  {this.props.user.authInfo.payload.name}
+                </Text>
+                <Text style={styles.font}>
+                  {this.props.user.authInfo.payload.email}
+                </Text>
+              </View>
+            </View>
 
-          <View style={styles.right}>
-            <Text style={styles.font}>Dieu Linh Truong </Text>
-            <Text style={styles.font}>dieulinhtruong@gmail.com </Text>
-          </View>
-        </View>
+            <View style={styles.point}>
+              <Icon name="star" type="font-awesome" color="#FF9933" />
+              <Text style={styles.pointDetail}>
+                {this.props.user.authInfo.payload.point}
+              </Text>
+            </View>
 
-        <View style={styles.point}>
-          <Icon  name="star" type="font-awesome" color="#FF9933" />
-          <Text style={styles.pointDetail}>128</Text>
-        </View>
+            <View style={styles.userSetting}>
+              <View style={styles.left}>
+                <Icon name="cogs" type="font-awesome" color="#199EFF" />
+              </View>
+              <View style={styles.right}>
+                <Text style={styles.font}>Cài đặt</Text>
+              </View>
+            </View>
+            <View style={styles.userSetting}>
+              <View style={styles.left}>
+                <Icon name="exchange" type="font-awesome" color="#199EFF" />
+              </View>
+              <View style={styles.right}>
+                <Text style={styles.font}>Đổi mật khẩu</Text>
+              </View>
+            </View>
+            <View style={styles.userSetting}>
+              <View style={styles.left}>
+                <Icon name="sign-out" type="font-awesome" color="#199EFF" />
+              </View>
+              <View style={styles.right}>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log("logout");
+                    ToastAndroid.showWithGravity(
+                      "Đăng xuất thành công!",
+                      ToastAndroid.SHORT,
+                      ToastAndroid.CENTER
+                    );
+                   // await userService.logout();
+                    // store.dispatch(logout());
+                    
+                    this.props.navigation.navigate("Home");
+                   setTimeout(()=>{
+                      store.dispatch(logout());
+                   },1000)
+                  }}
+                >
+                  <Text style={styles.font}>Đăng xuất</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
 
-        <View style={styles.userSetting}>
-          <View style={styles.left}>
-            <Icon  name="cogs" type="font-awesome" color="#199EFF" />
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.font}>Cài đặt</Text>
-          </View>
-        </View>
-        <View style={styles.userSetting}>
-          <View style={styles.left}>
-            <Icon  name="exchange" type="font-awesome" color="#199EFF" />
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.font}>Đổi mật khẩu</Text>
-          </View>
-        </View>
-        <View style={styles.userSetting} onPress={() => navigation.navigate('')}>
-          <View style={styles.left}>
-            <Icon  name="sign-out" type="font-awesome" color="#199EFF" />
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.font}>Đăng xuất</Text>
-          </View>
-        </View>
-
-        <View style={styles.userSetting}>
-          <View style={styles.left}>
-            <Icon  name="phone" type="font-awesome" color="#199EFF" />
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.font}>Hỗ trợ</Text>
-          </View>
-        </View>
-        
+            <View style={styles.userSetting}>
+              <View style={styles.left}>
+                <Icon name="phone" type="font-awesome" color="#199EFF" />
+              </View>
+              <View style={styles.right}>
+                <Text style={styles.font}>Hỗ trợ</Text>
+              </View>
+            </View>
+          </>
+        ) : (
+          <>
+            <Button
+              buttonStyle={{
+                marginTop: 80
+              }}
+              title="Đăng nhập"
+              onPress={() => {
+                this.props.navigation.navigate("Login");
+              }}
+            ></Button>
+          </>
+        )}
       </View>
     );
- }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -132,10 +194,10 @@ const styles = StyleSheet.create({
 
 
 
-const mapStateToProps = state =>({
-  items : state.items
-
-})
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
 
 
 
@@ -153,4 +215,4 @@ PersonalScreen.navigationOptions = {
   )
 };
 
-export default connect(mapStateToProps)(PersonalScreen);
+export default connect(mapStateToProps)(withNavigationFocus(PersonalScreen));
