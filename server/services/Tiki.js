@@ -27,6 +27,21 @@ class Tiki {
             }
         }
     }
+
+     async crawl(id){
+        const res = await axios.get(`https://tiki.vn/api/v2/products/${id}`)
+        const data = res.data;
+        return {
+            image: data.thumbnail_url,
+            price:data.price,
+            discount_rate: data.discount_rate,
+            channel:"Tiki",
+            url:this.link,
+            crawl_info:{
+                id: this.crawlInfo.id
+            }
+        }
+    }
 }
 
 module.exports = Tiki;

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const ProductModel = require("../models/product")
 /* GET users listing. */
-router.get("/", function(req, res, next) {
+router.get("/", async function(req, res, next) {
  const products = await ProductModel.getAll({ perPage: req.query.perPage, page:req.query.page });
 
  res.json({
@@ -13,7 +13,7 @@ router.get("/", function(req, res, next) {
  })
 });
 
-router.post("/add", function(req, res, next) {
+router.post("/add", async function(req, res, next) {
  const product = await ProductModel.add({
   created_by: req.body.created_by,
   image:req.body.image,
@@ -33,7 +33,7 @@ router.post("/add", function(req, res, next) {
  })
 });
 
-router.get("/:productId", function(req, res, next) {
+router.get("/:productId", async function(req, res, next) {
   const product = await ProductModel.getById(req.params.productId);
 
   res.json({
@@ -44,7 +44,7 @@ router.get("/:productId", function(req, res, next) {
   });
 });
 
-router.get("/user/:userId", function(req, res, next) {
+router.get("/user/:userId", async function(req, res, next) {
   const products = await ProductModel.getByUserId(req.params.userId);
 
   res.json({

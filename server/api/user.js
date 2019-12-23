@@ -4,11 +4,18 @@ const UserModel = require("../models/user")
 
 /* GET users listing. */
 router.post('/register', async function(req, res, next) {
-  const user = await UserModel.register({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  });
+  if (await UserModel.isRegister(req.body.email)){
+    res.json({
+      error: true,
+      messsage:"Duplicate"
+    })
+    return ;
+  }
+    const user = await UserModel.register({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    });
   res.json({
     error: false,
     payload: user
@@ -46,6 +53,16 @@ router.post("/password", async function(req, res, next) {
     error: false,
     messsage:"Update password successfully"
   })
+});
+
+router.get("/auth", async function(req, res, next) {
+  const user = await UserModel.getByToken(req.query.token);
+  delete user.password;
+
+  res.json({
+    error: user ? false : true,
+    payload: user
+  });
 });
 
 module.exports = router;

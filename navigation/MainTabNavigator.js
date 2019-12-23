@@ -97,7 +97,7 @@ NotifyStack.path = ""
 
 const LoginStack = createStackNavigator(
   {
-    Login: LoginScreen
+    Login: LoginScreen,
   },
   config
 );
@@ -116,7 +116,7 @@ LoginStack.path = "";
 
 const RegisterStack = createStackNavigator(
   {
-    Register: RegisterScreen
+    Register: RegisterScreen,
   },
   config
 );
