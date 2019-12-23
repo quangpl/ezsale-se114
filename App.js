@@ -4,12 +4,10 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import rootReducer from "./store/reducers";
 
 import AppNavigator from './navigation/AppNavigator';
-const store = createStore(rootReducer);
+import store from "./store"
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

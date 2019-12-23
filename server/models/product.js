@@ -73,11 +73,21 @@ return await ProductModel.find({})
                                   };
 
 
-ProductModel.getNewestProduct = async () => {
-  return await ProductModel.find({})
+ProductModel.getNewestProduct = async ({page,perPage}) => {
+
+  if (page < 0 || perPage === 0) {
+    page=1;
+    perPage=10;
+  }
+
+  let query={};
+  query.skip = perPage * (page - 1);
+  query.limit = perPage;
+  
+  return await ProductModel.find({}).skip(query.skip)
     .sort({
       createdAt: -1
-    })
+    }).limit(query.limit)
     .exec();
 };
 

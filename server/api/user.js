@@ -57,7 +57,7 @@ router.post("/password", async function(req, res, next) {
 
 router.get("/auth", async function(req, res, next) {
   const user = await UserModel.getByToken(req.query.token);
-  delete user.password;
+user.password = "";
 
   res.json({
     error: user ? false : true,

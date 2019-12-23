@@ -8,11 +8,15 @@ import {
   Keyboard,
   ToastAndroid
 } from "react-native";
+import { addItem, login, auth } from "../store/actions";
+import store from "../store";
+
 import { Image, Button, CheckBox } from "react-native-elements";
+import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import UserService from "../services/user";
 
-export default class LoginScreen extends React.Component {
+ class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,6 +52,10 @@ export default class LoginScreen extends React.Component {
       email: "",
       password: ""
     });
+
+
+    const authInfo = await userService.auth();
+    store.dispatch(auth(authInfo));
     ToastAndroid.showWithGravity(
       "Đăng nhập thành công !",
       ToastAndroid.LONG,
@@ -118,6 +126,7 @@ export default class LoginScreen extends React.Component {
     );
   }
 }
+export default connect()(LoginScreen);
 
 LoginScreen.navigationOptions = {
   header: null

@@ -21,11 +21,13 @@ export default class UserService {
 
     if (!res.data.error) {
       await AsyncStorage.setItem("token", res.data.payload.token);
+      console.log(res.data.payload);
       return res.data.payload;
     } else {
       return false;
     }
   }
+
 
   async logout() {
     await AsyncStorage.setItem("token", undefined);

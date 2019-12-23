@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import { AsyncStorage } from "react-native";
 
+
 import React from 'react';
 import {
   Image,
@@ -11,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { connect } from "react-redux";
 
 import Carousel from 'react-native-snap-carousel';
 
@@ -27,7 +29,10 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {LoginScreen} from '../screens/LoginScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 
-export default class HomeScreen extends React.Component{
+import store from "../store"
+import {addItem, login, auth} from "../store/actions"
+import UserService from "../services/user"
+ class HomeScreen extends React.Component{
   
   constructor(props) {
     super(props);
@@ -45,7 +50,13 @@ export default class HomeScreen extends React.Component{
 }
 
   async componentDidMount(){
-    console.log(await AsyncStorage.getItem("token"));
+    const token = await AsyncStorage.getItem("token");
+    if(token){
+      const user = new UserService();
+      const authInfo = await user.auth();
+      //console.log(authInfo);
+     // store.dispatch(auth(authInfo));
+    }
     // console.log("init");
     // axios.get('http://localhost:3000/Hot')
     // .then(res=>{
@@ -181,6 +192,7 @@ HomeScreen.navigationOptions = {
     fontWeight: "bold"
   }
 };
+export default connect()(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -19,6 +19,7 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
+    Register: RegisterScreen
   },
   config
 );
@@ -114,24 +115,24 @@ LoginStack.navigationOptions = {
 
 LoginStack.path = "";
 
-const RegisterStack = createStackNavigator(
-  {
-    Register: RegisterScreen,
-  },
-  config
-);
+// const RegisterStack = createStackNavigator(
+//   {
+//     Register: RegisterScreen,
+//   },
+//   config
+// );
 
-RegisterStack.navigationOptions = {
-  tabBarLabel: "Register",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
-    />
-  )
-};
+// RegisterStack.navigationOptions = {
+//   tabBarLabel: "Register",
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+//     />
+//   )
+// };
 
-RegisterStack.path = "";
+//RegisterStack.path = "";
 
 const ItemDetailsStack = createStackNavigator(
   {
@@ -157,8 +158,7 @@ const tabNavigator = createBottomTabNavigator({
   NotifyStack,
   PersonalStack,
   LoginStack,
-  RegisterStack,
-  ItemDetailsStack
+  ItemDetailsStack,
 });
 
 tabNavigator.path = '';
