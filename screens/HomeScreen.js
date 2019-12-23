@@ -25,7 +25,6 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import {LoginScreen} from '../screens/LoginScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 
-var isLogin=true;
 var id;
 export default class HomeScreen extends React.Component{
   static navigationOptions= ({navigation}) =>{
@@ -74,8 +73,9 @@ export default class HomeScreen extends React.Component{
   render(){
   const{productsHot, productsNew}=this.state;
   const navigation = this.props.navigation
-  if(isLogin)
+  if(navigation.getParam('value'))
   {
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -109,9 +109,11 @@ export default class HomeScreen extends React.Component{
                       keyExtractor={productsNew.id}
                       contentContainerStyle={styles.containerFlat}     //has to be unique   
                       renderItem={({item}) =>
-                    <TouchableOpacity onPress={() => 
-                      console.log(item.id)
-                    }>
+                    <TouchableOpacity 
+                    onPress={() => navigation.navigate('ItemDetail',
+                    {itemID:item.id,
+                    groupID:2,})}
+                    >
                       <View style={styles.wrapper} >
                           <VerticalProduct itemData={item} />
                       </View>
@@ -131,9 +133,6 @@ export default class HomeScreen extends React.Component{
   }
   else
   {
-    return(
-      <LoginScreen/>
-    );
   }
   }
  }

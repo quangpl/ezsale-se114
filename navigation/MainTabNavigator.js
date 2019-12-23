@@ -18,7 +18,10 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
+    Login:LoginScreen,
     Home: HomeScreen,
+    Register:RegisterScreen,
+    ItemDetail:ItemDetails,
   },
   config
 );
@@ -156,9 +159,9 @@ const tabNavigator = createBottomTabNavigator({
   FollowStack,
   NotifyStack,
   PersonalStack,
-  LoginStack,
-  RegisterStack,
-  ItemDetailsStack
+  //LoginStack,
+ // RegisterStack,
+  //ItemDetailsStack
 });
 
 tabNavigator.path = '';

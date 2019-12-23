@@ -22,10 +22,12 @@ export default class LoginScreen extends React.Component {
           </View>
 
           <View style={styles.btnGroup}>
-            <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng nhập" onPress={() => navigation.navigate('HomeScreen',
+            <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng nhập" onPress={() => navigation.replace('Home',
             {value:true})}
             />
-            <Button buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Đăng ký"/>
+            <Button buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} 
+            onPress={() => navigation.navigate('Register',{value:true})}
+            title="Đăng ký"/>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -47,8 +49,8 @@ const styles = StyleSheet.create({
   logo: {
     flex: 0.3,
     flexDirection: "column",
-    justifyContent: "flex-end",
-    alignContent: "flex-end",
+    justifyContent: "center",
+    alignContent: "center",
     alignItems: "center"
   },
 
@@ -73,11 +75,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#189DFF",
     paddingLeft: 10
-  },
-  
-  checkbox: {
-    flex: 0.1,
-    flexDirection: "row",
   },
 
   btn: {

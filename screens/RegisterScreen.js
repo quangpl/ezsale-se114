@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginScreen extends React.Component {
   render(){
+    const navigation = this.props.navigation
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
@@ -23,7 +25,10 @@ export default class LoginScreen extends React.Component {
 
           <View style={styles.btnGroup}>
             <Button buttonStyle={styles.btn} size="large" type="outline" title="Đăng ký" />
-            <Button  buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} title="Đăng nhập"/>
+            <Button  buttonStyle={styles.btnReg} size="large" type="clear" sty titleStyle={{ color:"#fff"}} 
+            onPress={() => navigation.replace('Home',
+            {value:true})}
+            title="Đăng nhập"/>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -44,8 +49,8 @@ const styles = StyleSheet.create({
   logo: {
     flex: 0.3,
     flexDirection: "column",
-    justifyContent: "flex-end",
-    alignContent: "flex-end",
+    justifyContent: "center",
+    alignContent: "center",
     alignItems: "center"
   },
 

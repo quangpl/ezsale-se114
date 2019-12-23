@@ -8,8 +8,44 @@ import { Button } from 'react-native-elements';
 import {Dimensions} from 'react-native';
 
 export default class ItemDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+        product:[]
+    };
+  }
+  
+  // componentDidMount(){
+  //   if(navigation.getParam('groupID')==2)
+  //   { var a = navifation.getParam('itemID')
+  //     axios.get('http://localhost:4000/new?id{a}')
+  //   .then(res=>{
+  //     console.log(res.data);
+  //     this.setState({
+  //       product:res.data
+  //     })
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //     })
+  //   }
+  //   else
+  //   {
+  //     axios.get('http://localhost:4000/Hot')
+  //   .then(res=>{
+  //     console.log(res.data);
+  //     this.setState({
+  //       productsHot:res.data
+  //     })
+  //   })
+  //   .catch(error => {
+  //     console.error(error);
+  //     })
+  //   }
+  // }
+
     render(){
-        const navigation = this.props.navigation
+      const navigation = this.props.navigation
         const line = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
@@ -19,6 +55,8 @@ export default class ItemDetails extends React.Component {
               },
             ],
           };
+        const product = this.state
+        
         return (
         <View style={{flexDirection:'column',alignContent:'space-between', paddingTop:30}}>
             <View style={styles.image}>
@@ -96,7 +134,7 @@ export default class ItemDetails extends React.Component {
                 bezier
                 style={{
                 marginVertical: 8,
-                //borderRadius: 16
+                //borderWidth: 5
                 }}
             />
         </View>
@@ -105,7 +143,7 @@ export default class ItemDetails extends React.Component {
 } 
 }
 ItemDetails.navigationOptions = {
-    header: null
+    header: null /*Change to*/
   };
   const styles = StyleSheet.create({
     container: {

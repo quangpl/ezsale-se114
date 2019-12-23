@@ -16,6 +16,8 @@ class PersonalScreen extends React.Component {
       console.log(this.props.items);
    }
  render(){
+  const navigation = this.props.navigation
+
     return (
       <View style={styles.container}>
 
@@ -51,7 +53,7 @@ class PersonalScreen extends React.Component {
             <Text style={styles.font}>Đổi mật khẩu</Text>
           </View>
         </View>
-        <View style={styles.userSetting}>
+        <View style={styles.userSetting} onPress={() => navigation.navigate('')}>
           <View style={styles.left}>
             <Icon  name="sign-out" type="font-awesome" color="#199EFF" />
           </View>
