@@ -1,0 +1,36 @@
+{
+    "User":[
+        {
+        "name":"Lac",
+        "point":50,
+        "email":"kupohateyou@gmail.com",
+        "password":"123456",
+        "token":"11233555667",
+        "id":"1"
+        },
+        {
+        "name":"Linh",
+        "point":100,
+        "email":"kupohateyou1@gmail.com",
+        "password":"1234567",
+        "token":"112335556679",
+        "id":"2"
+        },
+        {
+        "name":"Quang",
+        "point":50,
+        "email":"kupohateyou2@gmail.com",
+        "password":"1234567",
+        "token":"112335556671",
+        "id":"3"
+        },
+        {
+        "name":"Minh",
+        "point":50,
+        "email":"kupohateyou3@gmail.com",
+        "password":"123456",
+        "token":"112335556672",
+        "id":"4"
+        }
+    ]
+}

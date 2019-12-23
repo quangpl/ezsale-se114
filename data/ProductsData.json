@@ -1,0 +1,86 @@
+{
+    "product":[
+    {
+        "created_by":"1",
+        "image":"https://cf.shopee.vn/file/7cee51b018207cf30e2f04331604470f_tn",
+        "price":20000,
+        "discount_rate":30,
+        "channel":"Shopee",
+        "url":"https://shopee.vn/-M%C3%A3-GRO1VNM12-gi%E1%BA%A3m-t%E1%BB%91i-%C4%91a-20K-%C4%91%C6%A1n-150K-Th%C3%B9ng-48-h%E1%BB%99p-S%E1%BB%AFa-%C4%91%E1%BA%ADu-n%C3%A0nh-Vinamilk-%C4%91%E1%BA%ADu-%C4%91%E1%BB%8F-180ml-h%E1%BB%99p-i.108156851.4311166202",
+        "crawl_info":{
+            "shopID":4311166202,
+            "id": 108156851
+        },
+        "nextTimeCheck":"",
+        "followers":["1","2","3"],
+        "history": [{
+            "updated_at":"1576896592",
+            "price":15000
+        },
+        {
+            "updated_at":"1576810192",
+            "price":15000
+        },
+        {
+            "updated_at":"1576723792",
+            "price":15000
+        }
+    ]
+    },
+    {
+        "created_by":"2",
+        "image":"https://cf.shopee.vn/file/5b8ba6ab3ad232deeaaf7c2695ee0a7b_tn",
+        "price":20000,
+        "discount_rate":30,
+        "channel":"Shopee",
+        "url":"https://shopee.vn/Sữa-óc-chó-hạnh-nhân-đậu-đen-Hàn-Quốc-gói-lẻ-195g-i.118033444.2692890358",
+        "crawl_info":{
+            "shopID":4311166202,
+            "id": 108156851
+        },
+        "nextTimeCheck":"",
+        "followers":["1","2","3"],
+        "history": [{
+            "updated_at":"1576896592",
+            "price":15000
+        },
+        {
+            "updated_at":"1576810192",
+            "price":15000
+        },
+        {
+            "updated_at":"1576723792",
+            "price":15000
+        }
+    ]
+    },
+    {
+        "created_by":"3",
+        "image":"https://salt.tikicdn.com/cache/280x280/ts/product/0b/7e/ea/95a4de374922102389eba9d066b674b4.jpg",
+        "price":20000,
+        "discount_rate":30,
+        "channel":"Tiki",
+        "url":"https://tiki.vn/may-say-toc-xiaomi-mijia-smate-p8005664.html?spid=8005669&src=home-deal-hot",
+        "crawl_info":{
+            "shopID":0,
+            "id": 8005664
+        },
+        "nextTimeCheck":"",
+        "followers":["1","2","3"],
+        "history": [{
+            "updated_at":"1576896592",
+            "price":15000
+        },
+        {
+            "updated_at":"1576810192",
+            "price":15000
+        },
+        {
+            "updated_at":"1576723792",
+            "price":15000
+        }
+    ]
+    }
+
+    ]
+}

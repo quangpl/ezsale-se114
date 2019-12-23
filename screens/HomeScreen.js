@@ -49,7 +49,7 @@ export default class HomeScreen extends React.Component{
 
   componentDidMount(){
     console.log("init");
-    axios.get('http://localhost:3000/Hot')
+    axios.get('http://localhost:4000/Hot')
     .then(res=>{
       console.log(res.data);
       this.setState({
@@ -60,7 +60,7 @@ export default class HomeScreen extends React.Component{
       console.error(error);
       })
 
-    axios.get('http://localhost:3000/New')
+    axios.get('http://localhost:4000/New')
       .then(res=>{
         this.setState({
           productsNew:res.data
