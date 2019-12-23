@@ -1,7 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import { AsyncStorage } from "react-native";
 
-
+import ProductService from "../services/products"
 import React from 'react';
 import {
   Image,
@@ -11,7 +11,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+  ActivityIndicator
+} from "react-native";
 import { connect } from "react-redux";
 
 import Carousel from 'react-native-snap-carousel';
@@ -39,7 +40,8 @@ import UserService from "../services/user"
     this.state={
         productsNew:[],
         productsHot:[],
-        isLogin : false
+        isLogin : false,
+        isLoad: true
     };
   }
 
@@ -54,15 +56,24 @@ import UserService from "../services/user"
     if(token){
       const user = new UserService();
       const authInfo = await user.auth();
-      //console.log(authInfo);
-     // store.dispatch(auth(authInfo));
+      store.dispatch(auth(authInfo));
     }
+    const productService = new ProductService();
+    const hotProducts = await productService.getHotProducts();
+    console.log(hotProducts);
+    await this.setState({
+      productsHot:hotProducts
+    });
+
+    await this.setState({
+      isLoad: false
+    })
     // console.log("init");
     // axios.get('http://localhost:3000/Hot')
     // .then(res=>{
     //   console.log(res.data);
     //   this.setState({
-    //     productsHot:res.data
+    //    hotProducts
     //   })
     // })
     // .catch(error => {
@@ -86,22 +97,26 @@ import UserService from "../services/user"
   const navigation = this.props.navigation
   return (
     <View style={styles.container}>
-      <ScrollView>
+      {!this.state.isLoad ? (
+        <>
+          <ScrollView>
             <View style={styles.componentI}>
               <View style={styles.containerSearching}>
                 <Text style={styles.headerText}>Hot nhất</Text>
                 <View style={styles.componentHotItem}>
-                    {/* <VerticalProduct />
+                  {/* <VerticalProduct />
                     <VerticalProduct/>
                     <VerticalProduct/> */}
-                     <Carousel
-              ref={(c) => { this._carousel = c; }}
-              data={this.state.productsHot}
-              renderItem={this._renderItem}
-              sliderWidth={300}
-              itemWidth={100}
-            />
-                    {/* <FlatList
+                  <Carousel
+                    ref={c => {
+                      this._carousel = c;
+                    }}
+                    data={this.state.productsHot}
+                    renderItem={this._renderItem}
+                    sliderWidth={300}
+                    itemWidth={100}
+                  />
+                  {/* <FlatList
                     data={productsHot}
                     renderItem={({item})=><VerticalProduct itemData={item}/>}
                     keyExtractor={item=>`${productsHot.id}`}
@@ -109,8 +124,8 @@ import UserService from "../services/user"
                     /> */}
                 </View>
               </View>
-              
-               {/* <View style={styles.containerMostComparable}>
+
+              {/* <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
                       <FlatList
                       data={productsNew}
@@ -133,9 +148,13 @@ import UserService from "../services/user"
                       />
               </View>  */}
             </View>
-      </ScrollView> 
-  </View>
-   );
+          </ScrollView>
+        </>
+      ) : (
+        <ActivityIndicator size="large" color="#199EFF" />
+      )}
+    </View>
+  );
   }
  }
 

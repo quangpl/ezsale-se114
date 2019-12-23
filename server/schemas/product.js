@@ -8,6 +8,10 @@ const ProductSchema = new Schema(
       type: Schema.ObjectId,
       required: true
     },
+    title: {
+      type: String,
+      required: true
+    },
     image: {
       type: String
     },

@@ -3,7 +3,7 @@ const UserSchema = require("../schemas/user");
 let UserModel = mongoose.model("User", UserSchema);
 let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
-
+const ProductModel = require("./product")
 var randomstring = require("randomstring");
 
 UserModel.register = async ({
@@ -64,6 +64,17 @@ UserModel.getByToken = async (token) => {
     token
   }).exec();
 };
+
+UserModel.getFollowing = async token => {
+  const user =  await UserModel.findOne({
+    token
+  }).exec();
+  const result = await Promise.all(user.following.map(async e=>{
+    const product = await ProductModel.getById(e);
+  }));
+  return result;
+};
+
 
 
 module.exports = UserModel;

@@ -46,7 +46,7 @@ router.post("/add", async function(req, res, next) {
 
   const user = await UserModel.getByToken(req.body.token);
 if(!user){
-  res.jsom({
+  res.json({
     error:true,
     message: "Your request is not valid"
   })
@@ -64,9 +64,10 @@ if(!user){
    price: dataTiki.price,
    discount_rate: dataTiki.discount_rate,
    channel: dataTiki.channel,
-   url: this.url,
+   url: dataTiki.url,
    crawl_info: dataTiki.crawl_info,
-   stock_price: dataTiki.list_price
+   stock_price: dataTiki.list_price,
+   title:dataTiki.name
  });
 
  res.json({

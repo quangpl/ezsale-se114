@@ -19,7 +19,8 @@ const config = Platform.select({
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Register: RegisterScreen
+    Register: RegisterScreen,
+    Detail:ItemDetails,
   },
   config
 );
@@ -134,31 +135,30 @@ LoginStack.path = "";
 
 //RegisterStack.path = "";
 
-const ItemDetailsStack = createStackNavigator(
-  {
-    ItemDetail: ItemDetails
-  },
-  config
-);
+// const ItemDetailsStack = createStackNavigator(
+//   {
+//     ItemDetail: ItemDetails
+//   },
+//   config
+// );
 
-ItemDetailsStack.navigationOptions = {
-  tabBarLabel: "ItemDetails",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
-    />
-  )
-};
+// ItemDetailsStack.navigationOptions = {
+//   tabBarLabel: "ItemDetails",
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+//     />
+//   )
+// };
 
-ItemDetailsStack.path = "";
+// ItemDetailsStack.path = "";
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   FollowStack,
   NotifyStack,
   PersonalStack,
   LoginStack,
-  ItemDetailsStack,
 });
 
 tabNavigator.path = '';
