@@ -7,7 +7,13 @@ class JobQueue {
         if(product){
             const tiki = new Tiki(product.url);
             const newProduct = await tiki.crawl(product.crawl_info.id);
-            await productModel.updateHistory({ _id: product._id, updated_at: Date.now(), price:newProduct.price });
+            await productModel.updateHistory({
+              _id: product._id,
+              updated_at: Date.now(),
+              price: newProduct.price,
+              discount_rate: newProduct.discount_rate,
+              stock_price: newProduct.list_price
+            });
         }
     }
 }

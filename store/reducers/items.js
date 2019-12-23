@@ -10,8 +10,6 @@ const initialState = [
 const items = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-
-    console.log("hahaahahahahah");
       return [
         ...state,
         {

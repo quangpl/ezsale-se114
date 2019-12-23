@@ -24,7 +24,8 @@ class Tiki {
             url:this.link,
             crawl_info:{
                 id: this.crawlInfo.id
-            }
+            },
+            list_price: data.list_price
         }
     }
 
@@ -39,7 +40,8 @@ class Tiki {
             url:this.link,
             crawl_info:{
                 id: this.crawlInfo.id
-            }
+            },
+            list_price: data.list_price
         }
     }
 }
