@@ -11,11 +11,15 @@ const ProductSchema = new Schema(
     image: {
       type: String
     },
-    price: {
-      type: Number,
-      required: true
-    },
     discount_rate: {
+      type: Number,
+      default: 0
+    },
+    stock_price: {
+      type: Number,
+      default: 0
+    },
+    price: {
       type: Number,
       default: 0
     },
@@ -35,17 +39,19 @@ const ProductSchema = new Schema(
       default: Date.now() + PERIOD_TIME_CHECK
     },
     followers: {
-      type: [String],
+      type: [mongoose.Types.ObjectId]
     },
     history: {
-      type: new Schema({
-        updated_at: {
-          type: String
-        },
-        price: {
-          type: Number
-        }
-      })
+      type: [
+        new Schema({
+          updated_at: {
+            type: String
+          },
+          price: {
+            type: Number
+          }
+        })
+      ]
     }
   },
   {

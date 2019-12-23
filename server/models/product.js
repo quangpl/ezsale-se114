@@ -11,16 +11,24 @@ ProductModel.add = async ({
   discount_rate,
   channel,
   url,
-  crawl_info
+  crawl_info,
+  stock_price
 }) => {
   let newProduct = new Product({
     created_by,
     image,
-    price,
     discount_rate,
     channel,
     url,
-    crawl_info
+    price,
+    crawl_info,
+    stock_price,
+    history: [
+      {
+        price,
+        updated_at: Date.now()
+      }
+    ]
   });
 
   await newProduct.save();
@@ -34,7 +42,13 @@ ProductModel.getByUserId = async (id) => {
  }).exec();
 };
 
-ProductModel.updateHistory = async ({ _id, updated_at ,price}) => {
+ProductModel.updateHistory = async ({
+  _id,
+  updated_at,
+  price,
+  discount_rate,
+  stock_price
+}) => {
   return await ProductModel.updateOne(
     {
       _id: mongoose.Types.ObjectId(_id)
@@ -44,9 +58,12 @@ ProductModel.updateHistory = async ({ _id, updated_at ,price}) => {
         history: {
           updated_at,
           price
-        },
-        nextTimeCheck: Date.now() + PERIOD_TIME_CHECK
-      }
+        }
+      },
+      nextTimeCheck: Date.now() + PERIOD_TIME_CHECK,
+      price,
+      discount_rate,
+      stock_price
     }
   ).exec();
 };
@@ -56,7 +73,7 @@ ProductModel.getById = async id => {
 
 ProductModel.getProductToCrawl = async () => {
   return await ProductModel.findOne({
-    nextTimeCheck : Data.now()
+    nextTimeCheck : Date.now()
   }).exec();
 };
 
