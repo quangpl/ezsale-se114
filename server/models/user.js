@@ -57,6 +57,10 @@ UserModel.updatePassword = async ({ email, password }) => {
     }
   ).exec();
 };
+UserModel.getById = async (id) => {
+  return await UserModel.findById(id).exec();
+  }
+
 
 
 UserModel.getByToken = async (token) => {

@@ -2,6 +2,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { AsyncStorage, TouchableHighlight } from "react-native";
 import { Notifications } from "expo";
 import ProductService from "../services/products"
+import AddProduct from "../components/AddProduct"
 import React from 'react';
 import {
   Image,
@@ -44,6 +45,7 @@ class HomeScreen extends React.Component {
       isLoad: true,
       page: 1
     };
+    const _this=this;
   }
 
   _renderItem = ({ item, index }) => {
@@ -169,39 +171,7 @@ HomeScreen.navigationOptions = {
   headerStyle: {
     backgroundColor: "#199eff"
   },
-  headerTitle: () => (
-    <View
-      style={{
-        flexDirection: "row",
-        width: "100%",
-        padding: 10,
-        alignContent:"center",
-        alignItems:"center",
-        justifyContent: "space-around"
-      }}
-    >
-      <TextInput
-        style={{
-          backgroundColor: "white",
-          borderRadius: 20,
-          height: 25,
-          borderWidth: 0,
-          paddingLeft: 10,
-          marginTop: 3,
-          flex: 0.9
-        }}
-      ></TextInput>
-      <Icon
-        style={{
-          flex:0.1
-        }}
-        name="plus"
-        type="font-awesome"
-        color="#fff"
-        onPress={() => console.log("hello")}
-      />
-    </View>
-  ),
+  headerTitle: () => <AddProduct/>,
   headerBackground: (
     <LinearGradient
       colors={["#237AE4", "#6C5CE7"]}

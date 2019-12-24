@@ -32,4 +32,12 @@ export default class ProductService {
     });
     return true;
   }
+
+  async addProduct({ token, url }) {
+    const res = await axios.post(`${URL_BACK_END}/api/products/add`, {
+      token,
+      url
+    });
+    return res.data;
+  }
 }
