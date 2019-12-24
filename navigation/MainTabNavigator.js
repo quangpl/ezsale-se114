@@ -10,7 +10,7 @@ import NotifyScreen from "../screens/NotifyScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ItemDetails from "../screens/ItemDetails";
-
+import ChangePassword from '../screens/ChangePassword'
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
@@ -21,6 +21,10 @@ const HomeStack = createStackNavigator(
     Home: HomeScreen,
     Register: RegisterScreen,
     Detail:ItemDetails,
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Login:LoginScreen,
+    ChangePass:ChangePassword,  
   },
   config
 );
@@ -67,6 +71,7 @@ const PersonalStack = createStackNavigator(
     Register: RegisterScreen,
     Detail:ItemDetails,
     Login:LoginScreen,
+    ChangePass:ChangePassword,
   },
   config
 );
@@ -84,7 +89,13 @@ PersonalStack.path = "";
 
 const NotifyStack = createStackNavigator(
   {
-    Notify: NotifyScreen
+    Notify: NotifyScreen,
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Register: RegisterScreen,
+    Detail:ItemDetails,
+    Login:LoginScreen,
+    ChangePass:ChangePassword,
   },
   config
 );
@@ -104,6 +115,12 @@ NotifyStack.path = ""
 const LoginStack = createStackNavigator(
   {
     Login: LoginScreen,
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Register: RegisterScreen,
+    Detail:ItemDetails,
+    Login:LoginScreen,
+    ChangePass:ChangePassword,
   },
   config
 );
@@ -119,6 +136,33 @@ LoginStack.navigationOptions = {
 };
 
 LoginStack.path = "";
+
+
+const ChangePassStack = createStackNavigator(
+  {
+    ChangePass:ChangePassword,
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Register: RegisterScreen,
+    Detail:ItemDetails,
+    Login:LoginScreen,
+    ChangePass:ChangePassword,
+  },
+  config
+);
+
+ChangePassStack.navigationOptions = {
+  tabBarLabel: "ChangePass",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+    />
+  )
+};
+
+ChangePassStack.path = "";
+
 
 // const RegisterStack = createStackNavigator(
 //   {
@@ -139,22 +183,28 @@ LoginStack.path = "";
 
 //RegisterStack.path = "";
 
-// const ItemDetailsStack = createStackNavigator(
-//   {
-//     ItemDetail: ItemDetails
-//   },
-//   config
-// );
+const ItemDetailsStack = createStackNavigator(
+  {
+    ItemDetail: ItemDetails,
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Register: RegisterScreen,
+    Detail:ItemDetails,
+    Login:LoginScreen,
+    ChangePass:ChangePassword,
+  },
+  config
+);
 
-// ItemDetailsStack.navigationOptions = {
-//   tabBarLabel: "ItemDetails",
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
-//     />
-//   )
-// };
+ItemDetailsStack.navigationOptions = {
+  tabBarLabel: "ItemDetails",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-notifications" : "md-notifications"}
+    />
+  )
+};
 
 // ItemDetailsStack.path = "";
 const tabNavigator = createBottomTabNavigator({
@@ -162,6 +212,7 @@ const tabNavigator = createBottomTabNavigator({
   FollowStack,
   NotifyStack,
   PersonalStack,
+  //ChangePassStack,
   //LoginStack,
 });
 

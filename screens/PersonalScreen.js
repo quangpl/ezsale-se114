@@ -81,7 +81,13 @@ class PersonalScreen extends React.Component {
                 <Icon name="exchange" type="font-awesome" color="#199EFF" />
               </View>
               <View style={styles.right}>
-                <Text style={styles.font}>Đổi mật khẩu</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                    this.props.navigation.navigate("ChangePass");
+                    }}
+                  >
+                    <Text style={styles.font}>Đổi mật khẩu</Text>
+                  </TouchableOpacity>              
               </View>
             </View>
             <View style={styles.userSetting}>

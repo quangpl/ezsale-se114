@@ -18,9 +18,7 @@ export default class HorizontalItem extends React.Component {
       return str;
     }
   }
-  _onPressProduct(item){
-    this.props.navigation.navigate("Detail",{value:item});
-  }
+  
   render() {
     const {itemData} = this.props;
 
@@ -58,6 +56,7 @@ export default class HorizontalItem extends React.Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

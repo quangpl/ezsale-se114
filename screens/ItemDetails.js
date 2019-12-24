@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image,Linking} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image,Linking,Alert} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
@@ -24,7 +24,7 @@ class ItemDetails extends React.Component {
           if (this.props.isFocused) {
             console.log(this.props.user.authInfo);
               if (!this.props.user.authInfo) {
-                alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+                Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
                 this.props.navigation.navigate("Login");
                 return false;
               }
@@ -95,7 +95,7 @@ class ItemDetails extends React.Component {
                 size="large"
                 type="clear"
                 title="Theo Dõi"
-                onPress={this._FollowingItem(data)}
+                onPress={()=>{this._FollowingItem(data)}}
               />
             </View>
             {/* <View>
