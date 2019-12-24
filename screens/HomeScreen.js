@@ -102,7 +102,16 @@ class HomeScreen extends React.Component{
                       this._carousel = c;
                     }}
                     data={this.state.productsHot}
-                    renderItem={this._renderItem}
+                    renderItem={({ item }) => (
+                      <View style={styles.wrapper}>
+                        <VerticalProduct
+                          onPressProduct={()=>{
+                            this._onPressProduct(item);
+                          }}
+                          itemData={item}
+                        />
+                      </View>
+                    )} 
                     sliderWidth={300}
                     itemWidth={100}
                   />
