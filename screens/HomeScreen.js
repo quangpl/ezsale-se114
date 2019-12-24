@@ -99,7 +99,14 @@ class HomeScreen extends React.Component{
                       this._carousel = c;
                     }}
                     data={this.state.productsHot}
-                    renderItem={this._renderItem}
+                    renderItem={({item}) =>
+                    <TouchableOpacity 
+                    onPress={()=>this.props.navigation.navigate('Detail',{value:item})}
+                    >
+                      <View style={styles.wrapper}>
+                          <VerticalProduct itemData={item}  />
+                      </View>    
+                    </TouchableOpacity>}
                     sliderWidth={300}
                     itemWidth={100}
                   />
@@ -121,14 +128,14 @@ class HomeScreen extends React.Component{
                       }}
                       contentContainerStyle={styles.containerFlat}     //has to be unique   
                       renderItem={({item}) =>
-                    <TouchableHighlight>
-                      <View style={styles.wrapper} 
-                      onPress={()=>this.props.navigation.navigate('Detail',{value:item})}>
+                    <TouchableOpacity 
+                    onPress={()=>this.props.navigation.navigate('Detail',{value:item})}
+                    >
+                      <View style={styles.wrapper}>
                           <VerticalProduct itemData={item}  />
-                          <Button  title="la"></Button>
 
                       </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     } //method to render the data in the way you want using styling u need
                       horizontal={false}
                       numColumns={3}
@@ -207,12 +214,12 @@ const styles = StyleSheet.create({
   container: {
     //flex: 0.5,
     backgroundColor: '#E5E5E5',
-    justifyContent:'space-between',
+    //justifyContent:'space-between',
     //flex:1,
   },
   componentI:
   {
-    justifyContent:'space-between',
+    //justifyContent:'space-between',
 
   },
   scrollView:
@@ -236,7 +243,7 @@ componentHotItem: {
           backgroundColor: '#ffffff',
           //borderRadius:50,
           flexDirection: "row",
-      justifyContent:'space-around',
+      //ustifyContent:'space-around',
       alignItems: 'center',
 
         
@@ -247,7 +254,7 @@ componentHotItem: {
           backgroundColor: '#ffffff',
           //borderRadius:50,
           flexDirection: "column",
-  justifyContent:"space-between",
+ // justifyContent:"space-between",
 
         },
     headerText:{
@@ -273,14 +280,16 @@ componentHotItem: {
     backgroundColor: '#ffffff',
     //borderRadius:50,
     flexDirection: "row",
-    justifyContent: 'space-around',
+    //justifyContent: 'space-around',
     alignItems: 'center',
 
 },
 wrapper:{
-  flex:1,
+  //flex:1,
   paddingHorizontal:8,
-  zIndex:2,
+  //height:130,
+  //width:130,
+  //zIndex:1,
 },
 containerFlat:{
 paddingHorizontal:8,
