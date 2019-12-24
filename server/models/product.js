@@ -123,4 +123,19 @@ ProductModel.getHotestProduct = async () => {
     .exec();
 };
 
+ProductModel.addFollower = async ({
+  productId,userId
+}) => {
+ await ProductModel.updateOne(
+   {
+     _id: mongoose.Types.ObjectId(productId)
+   },
+   {
+     $push: {
+       followers: mongoose.Types.ObjectId(userId)
+     }
+   }
+ );
+};
+
 module.exports = ProductModel;

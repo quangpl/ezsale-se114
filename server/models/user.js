@@ -75,6 +75,34 @@ UserModel.getFollowing = async token => {
   return result;
 };
 
+UserModel.followProduct = async ({
+  token,
+  productId
+}) => {
+
+  const user = await UserModel.getByToken(token);
+  const userId = user._id;
+  if(!user){
+    return false;
+  }
+  await ProductModel.addFollower({
+    productId,
+    userId
+  });
+
+   await UserModel.updateOne(
+    {
+      _id: mongoose.Types.ObjectId(userId)
+    },
+    {
+      $push: {
+        following: mongoose.Types.ObjectId(productId)
+      }
+    }
+  ).exec();
+  return true;
+};
+
 
 
 module.exports = UserModel;

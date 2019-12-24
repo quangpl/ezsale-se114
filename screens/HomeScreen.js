@@ -41,7 +41,8 @@ class HomeScreen extends React.Component{
         productsNew:[],
         productsHot:[],
         isLogin : false,
-        isLoad: true
+        isLoad: true,
+        page:1,
         
     };
   }
@@ -62,10 +63,7 @@ class HomeScreen extends React.Component{
     }
     const productService = new  ProductService();
     const hotProducts = await productService.getHotProducts();
-    const NewProducts = await productService.getNewProducts({
-      page: 1,
-      perPage: 10
-    });
+    const NewProducts = await productService.getNewProducts({page:this.state.page,perpage:12}); //default 12
 
     await this.setState({
       productsHot:hotProducts,
@@ -281,7 +279,8 @@ componentHotItem: {
 },
 wrapper:{
   flex:1,
-  paddingHorizontal:8
+  paddingHorizontal:8,
+  zIndex:2,
 },
 containerFlat:{
 paddingHorizontal:8,

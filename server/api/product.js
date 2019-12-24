@@ -100,5 +100,19 @@ router.get("/user/:userId", async function(req, res, next) {
   });
 });
 
+router.post("/follow", async function(req, res, next) {
+  const result = await UserModel.followProduct({
+    token: req.body.token,
+    productId: req.body.productId
+  });
+
+  res.json({
+    error: false,
+    messsage: "Follow successfully"
+  });
+});
 
 module.exports = router;
+
+
+
