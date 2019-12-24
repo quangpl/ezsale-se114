@@ -54,8 +54,10 @@ import UserService from "../services/user"
     if(token){
       const user = new UserService();
       const authInfo = await user.auth();
+
       //console.log(authInfo);
      // store.dispatch(auth(authInfo));
+
     }
     // console.log("init");
     // axios.get('http://localhost:3000/Hot')
@@ -84,6 +86,8 @@ import UserService from "../services/user"
   render(){
   const{productsHot, productsNew}=this.state;
   const navigation = this.props.navigation
+  const productsHot = await this.props.products.getHotestProduct();
+
   return (
     <View style={styles.container}>
       <ScrollView>

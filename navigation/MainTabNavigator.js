@@ -158,8 +158,8 @@ const tabNavigator = createBottomTabNavigator({
   FollowStack,
   NotifyStack,
   PersonalStack,
-  LoginStack,
-  ItemDetailsStack,
+  //LoginStack,
+  //ItemDetailsStack,
 });
 
 tabNavigator.path = '';

@@ -12,8 +12,8 @@ class Tiki {
         }
         return this.crawlInfo;
     }
-
-    getData(){
+    
+    async getData(){
         const res = await axios.get(`https://tiki.vn/api/v2/products/${this.crawlInfo.id}`)
         const data = res.data;
         return {

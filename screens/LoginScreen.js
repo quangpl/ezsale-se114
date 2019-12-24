@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
   logo: {
     flex: 0.3,
     flexDirection: "column",
-    justifyContent: "center",
-    alignContent: "center",
+    justifyContent: "flex-end",
+    alignContent: "flex-end",
     alignItems: "center"
   },
 
@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     flex: 0.25,
     justifyContent: "flex-end",
     alignContent: "flex-end",
-    flexDirection: "column"
+    flexDirection: "column",
+    marginTop:20,
   },
 
   input: {
@@ -184,6 +185,6 @@ const styles = StyleSheet.create({
 
   btnGroup: {
     flex: 0.35,
-    marginTop:20,
+    marginTop:35,
   }
 });
