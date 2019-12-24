@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://j7-jiu.anonymous.ezsale-se114.exp.direct",
-  "packagerNgrokUrl": "https://packager.j7-jiu.anonymous.ezsale-se114.exp.direct",
-  "ngrokPid": 2433,
+  "expoServerNgrokUrl": "https://cb-evs.anonymous.ezsale-se114.exp.direct",
+  "packagerNgrokUrl": "https://packager.cb-evs.anonymous.ezsale-se114.exp.direct",
+  "ngrokPid": 2721,
   "devToolsPort": 19002,
   "packagerPort": 19001,
-  "packagerPid": 2413
+  "packagerPid": 2695
 }

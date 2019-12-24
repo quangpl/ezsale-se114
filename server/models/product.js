@@ -96,21 +96,22 @@ return await ProductModel.find({})
 
 
 ProductModel.getNewestProduct = async ({page,perPage}) => {
-
+console.log(perPage);
   if (page < 0 || perPage === 0) {
     page=1;
     perPage=10;
   }
 
-  let query={};
-  query.skip = perPage * (page - 1);
-  query.limit = perPage;
-  
-  return await ProductModel.find({}).skip(query.skip)
-    .sort({
-      createdAt: -1
-    }).limit(query.limit)
-    .exec();
+
+const skip = perPage * (page - 1);
+
+return await ProductModel.find({})
+  .sort({
+    createdAt: -1
+  })
+  .skip(skip)
+  .limit(12)
+  .exec();
 };
 
 ProductModel.getHotestProduct = async () => {

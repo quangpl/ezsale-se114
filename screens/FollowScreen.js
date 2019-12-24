@@ -14,8 +14,6 @@ export default class FollowScreen extends React.Component {
     };
   }
   async componentDidMount(){
-    const user = new UserService();
-
 
   }
   render(){
