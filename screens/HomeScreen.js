@@ -78,6 +78,9 @@ class HomeScreen extends React.Component{
     onPress=()=>{
       console.log("pp")
     }
+    _onPressProduct(item){
+      this.props.navigation.navigate("Detail",{value:item});
+    }
 
   render(){
   const{productsHot, productsNew}=this.state;
@@ -99,14 +102,7 @@ class HomeScreen extends React.Component{
                       this._carousel = c;
                     }}
                     data={this.state.productsHot}
-                    renderItem={({item}) =>
-                    <TouchableOpacity 
-                    onPress={()=>this.props.navigation.navigate('Detail',{value:item})}
-                    >
-                      <View style={styles.wrapper}>
-                          <VerticalProduct itemData={item}  />
-                      </View>    
-                    </TouchableOpacity>}
+                    renderItem={this._renderItem}
                     sliderWidth={300}
                     itemWidth={100}
                   />
@@ -121,29 +117,27 @@ class HomeScreen extends React.Component{
 
               <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
-                      <FlatList
-                      data={productsNew}
-                      keyExtractor={(item)=>{
-                       return item._id;
-                      }}
-                      contentContainerStyle={styles.containerFlat}     //has to be unique   
-                      renderItem={({item}) =>
-                    <TouchableOpacity 
-                    onPress={()=>this.props.navigation.navigate('Detail',{value:item})}
-                    >
-                      <View style={styles.wrapper}>
-                          <VerticalProduct itemData={item}  />
-
-                      </View>
-                    </TouchableOpacity>
-                    } //method to render the data in the way you want using styling u need
-                      horizontal={false}
-                      numColumns={3}
-                      onEndReachedThreshold={0.1}
-                      
-                      
+                <FlatList
+                  data={productsNew}
+                  keyExtractor={item => {
+                    return item._id;
+                  }}
+                  contentContainerStyle={styles.containerFlat} //has to be unique
+                  renderItem={({ item }) => (
+                    <View style={styles.wrapper}>
+                      <VerticalProduct
+                        onPressProduct={()=>{
+                          this._onPressProduct(item);
+                        }}
+                        itemData={item}
                       />
-              </View> 
+                    </View>
+                  )} //method to render the data in the way you want using styling u need
+                  horizontal={false}
+                  numColumns={3}
+                  onEndReachedThreshold={0.1}
+                />
+              </View>
             </View>
           </ScrollView>
         </>
@@ -214,12 +208,12 @@ const styles = StyleSheet.create({
   container: {
     //flex: 0.5,
     backgroundColor: '#E5E5E5',
-    //justifyContent:'space-between',
+    justifyContent:'space-between',
     //flex:1,
   },
   componentI:
   {
-    //justifyContent:'space-between',
+    justifyContent:'space-between',
 
   },
   scrollView:
@@ -243,7 +237,7 @@ componentHotItem: {
           backgroundColor: '#ffffff',
           //borderRadius:50,
           flexDirection: "row",
-      //ustifyContent:'space-around',
+      justifyContent:'space-around',
       alignItems: 'center',
 
         
@@ -254,7 +248,7 @@ componentHotItem: {
           backgroundColor: '#ffffff',
           //borderRadius:50,
           flexDirection: "column",
- // justifyContent:"space-between",
+  justifyContent:"space-between",
 
         },
     headerText:{
@@ -280,16 +274,14 @@ componentHotItem: {
     backgroundColor: '#ffffff',
     //borderRadius:50,
     flexDirection: "row",
-    //justifyContent: 'space-around',
+    justifyContent: 'space-around',
     alignItems: 'center',
 
 },
 wrapper:{
-  //flex:1,
+  flex:1,
   paddingHorizontal:8,
-  //height:130,
-  //width:130,
-  //zIndex:1,
+  zIndex:2,
 },
 containerFlat:{
 paddingHorizontal:8,
