@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import { AsyncStorage, TouchableHighlight } from "react-native";
-
+import { Notifications } from "expo";
 import ProductService from "../services/products"
 import React from 'react';
 import {
@@ -14,6 +14,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
+import registerForPushNotificationsAsync from "../services/fcm";
 
 import Carousel from 'react-native-snap-carousel';
 
@@ -33,130 +34,136 @@ import { createStackNavigator } from 'react-navigation-stack';
 import store from "../store"
 import {addItem, login, auth} from "../store/actions"
 import UserService from "../services/user"
-class HomeScreen extends React.Component{
-  
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-        productsNew:[],
-        productsHot:[],
-        isLogin : false,
-        isLoad: true,
-        page:1,
-        
+    this.state = {
+      productsNew: [],
+      productsHot: [],
+      isLogin: false,
+      isLoad: true,
+      page: 1
     };
   }
 
-  _renderItem = ({item, index}) => {
-    return (
-      <VerticalProduct key={item.id} itemData={item}/>
-    
-    );
-}
+  _renderItem = ({ item, index }) => {
+    return <VerticalProduct key={item.id} itemData={item} />;
+  };
 
-  async componentDidMount(){
+  async componentDidMount() {
     const token = await AsyncStorage.getItem("token");
-    if(token){
+    if (token) {
       const user = new UserService();
       const authInfo = await user.auth();
       store.dispatch(auth(authInfo));
+      // await registerForPushNotificationsAsync(token); turn on notify
     }
-    const productService = new  ProductService();
+    const productService = new ProductService();
     const hotProducts = await productService.getHotProducts();
-    const NewProducts = await productService.getNewProducts({page:this.state.page,perpage:12}); //default 12
+    const NewProducts = await productService.getNewProducts({
+      page: this.state.page,
+      perpage: 12
+    }); //default 12
 
     await this.setState({
-      productsHot:hotProducts,
-      productsNew:NewProducts
+      productsHot: hotProducts,
+      productsNew: NewProducts
     });
 
     await this.setState({
       isLoad: false
-    })
- 
-    }
-    onPress=()=>{
-      console.log("pp")
-    }
-    _onPressProduct(item){
-      this.props.navigation.navigate("Detail",{value:item});
-    }
+    });
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
+  }
 
-  render(){
-  const{productsHot, productsNew}=this.state;
-  const navigation = this.props.navigation
-  return (
-    <View style={styles.container}>
-      {!this.state.isLoad ? (
-        <>
-          <ScrollView>
-            <View style={styles.componentI}>
-              <View style={styles.containerSearching}>
-                <Text style={styles.headerText}>Hot nhất</Text>
-                <View style={styles.componentHotItem}>
-                  {/* <VerticalProduct />
+  _handleNotification = notification => {
+    console.log(notification);
+  };
+
+  onPress = () => {
+    console.log("pp");
+  };
+  _onPressProduct(item) {
+    this.props.navigation.navigate("Detail", { value: item });
+  }
+
+  render() {
+    const { productsHot, productsNew } = this.state;
+    const navigation = this.props.navigation;
+    return (
+      <View style={styles.container}>
+        {!this.state.isLoad ? (
+          <>
+            <ScrollView>
+              <View style={styles.componentI}>
+                <View style={styles.containerSearching}>
+                  <Text style={styles.headerText}>Hot nhất</Text>
+                  <View style={styles.componentHotItem}>
+                    {/* <VerticalProduct />
                     <VerticalProduct/>
                     <VerticalProduct/> */}
-                  <Carousel
-                    ref={c => {
-                      this._carousel = c;
-                    }}
-                    data={this.state.productsHot}
-                    renderItem={({ item }) => (
-                      <View style={styles.wrapper}>
-                        <VerticalProduct
-                          onPressProduct={()=>{
-                            this._onPressProduct(item);
-                          }}
-                          itemData={item}
-                        />
-                      </View>
-                    )} 
-                    sliderWidth={300}
-                    itemWidth={100}
-                  />
-                  {/* <FlatList
+                    <Carousel
+                      ref={c => {
+                        this._carousel = c;
+                      }}
+                      data={this.state.productsHot}
+                      renderItem={({ item }) => (
+                        <View style={styles.wrapper}>
+                          <VerticalProduct
+                            onPressProduct={() => {
+                              this._onPressProduct(item);
+                            }}
+                            itemData={item}
+                          />
+                        </View>
+                      )}
+                      sliderWidth={300}
+                      itemWidth={100}
+                    />
+                    {/* <FlatList
                     data={productsHot}
                     renderItem={({item})=><VerticalProduct itemData={item}/>}
                     keyExtractor={item=>`${productsHot.id}`}
                     contentContainerStyle={{marginTop:10, backgroundColor: '#ffffff',flexDirection: "row",justifyContent:'space-around',alignItems: 'center',}}
                     /> */}
+                  </View>
+                </View>
+
+                <View style={styles.containerMostComparable}>
+                  <Text style={styles.headerText}>Mới nhất</Text>
+                  <FlatList
+                    data={productsNew}
+                    keyExtractor={item => {
+                      return item._id;
+                    }}
+                    contentContainerStyle={styles.containerFlat} //has to be unique
+                    renderItem={({ item }) => (
+                      <View style={styles.wrapper}>
+                        <VerticalProduct
+                          onPressProduct={() => {
+                            this._onPressProduct(item);
+                          }}
+                          itemData={item}
+                        />
+                      </View>
+                    )} //method to render the data in the way you want using styling u need
+                    horizontal={false}
+                    numColumns={3}
+                    onEndReachedThreshold={0.1}
+                  />
                 </View>
               </View>
-
-              <View style={styles.containerMostComparable}>
-                <Text style={styles.headerText}>Mới nhất</Text>
-                <FlatList
-                  data={productsNew}
-                  keyExtractor={item => {
-                    return item._id;
-                  }}
-                  contentContainerStyle={styles.containerFlat} //has to be unique
-                  renderItem={({ item }) => (
-                    <View style={styles.wrapper}>
-                      <VerticalProduct
-                        onPressProduct={()=>{
-                          this._onPressProduct(item);
-                        }}
-                        itemData={item}
-                      />
-                    </View>
-                  )} //method to render the data in the way you want using styling u need
-                  horizontal={false}
-                  numColumns={3}
-                  onEndReachedThreshold={0.1}
-                />
-              </View>
-            </View>
-          </ScrollView>
-        </>
-      ) : (
-        <ActivityIndicator size="large" color="#199EFF" />
-      )}
-    </View>
-  );
+            </ScrollView>
+          </>
+        ) : (
+          <ActivityIndicator size="large" color="#199EFF" />
+        )}
+      </View>
+    );
   }
- }
+}
 
 HomeScreen.navigationOptions = {
   headerStyle: {

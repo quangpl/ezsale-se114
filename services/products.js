@@ -14,19 +14,22 @@ export default class ProductService {
   }
 
   async getProductById(id) {
-    const res = await axios.get(
-      `${URL_BACK_END}/api/products/${id}`
-    );
+    const res = await axios.get(`${URL_BACK_END}/api/products/${id}`);
     return res.data.payload.product;
   }
 
-   async getFollowingByToken(token) {
+  async getFollowingByToken(token) {
     const res = await axios.get(
       `${URL_BACK_END}/api/users/following?token${token}`
     );
     return res.data.payload.products;
   }
 
-
- 
+  async followProduct({ token, productId }) {
+    const res = await axios.post(`${URL_BACK_END}/api/products/follow`, {
+      token,
+      productId
+    });
+    return true;
+  }
 }

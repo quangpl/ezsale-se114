@@ -69,9 +69,28 @@ router.get("/following", async function(req, res, next) {
   const products = await UserModel.getFollowing(req.query.token);
 
   res.json({
-    error: follows ? false : true,
+    error: products ? false : true,
     payload: products
   });
+});
+
+router.post("/push-token", async function(req, res, next) {
+   const result = await UserModel.updateTokenNotify({
+     token: req.body.token,
+     tokenNotify: req.body.tokenNotify
+   });
+if(!result){
+  res.status(200).json({
+    error: true,
+    message:"Token of user is invalid"
+  });
+}
+else{
+  res.status(200).json({
+    error: false
+  });
+}
+  
 });
 
 

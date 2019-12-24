@@ -24,6 +24,9 @@ const UserSchema = new Schema(
     following: {
       type: [mongoose.Types.ObjectId]
     },
+    token_notify:{
+      type: String
+    },
     token: {
       type: String,
       required: true,

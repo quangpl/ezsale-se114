@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js add react-native-svg@9.9.5
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js start
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS
@@ -14,12 +14,12 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/react-native-svg: ETIMEDOUT
-      at Timeout._onTimeout (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:130201:19)
-      at ontimeout (timers.js:436:11)
-      at tryOnTimeout (timers.js:300:5)
-      at listOnTimeout (timers.js:263:5)
-      at Timer.processTimers (timers.js:223:10)
+  SyntaxError: /Users/culicode/github/ezsale-se114/package.json: Unexpected token < in JSON at position 1292
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:304:30)
+      at /usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:315:13
 
 npm manifest: 
   {
@@ -61,12 +61,14 @@ npm manifest:
       "react": "16.8.3",
       "react-dom": "16.8.3",
       "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-      "react-native-chart-kit": "^4.2.0",
       "react-native-easy-grid": "^0.2.2",
       "react-native-elements": "^1.2.7",
       "react-native-gesture-handler": "~1.3.0",
       "react-native-snap-carousel": "^3.8.4",
-      "react-native-svg": "^9.13.6",
+  <<<<<<< HEAD
+      "react-native-svg": "9.9.5",
+  =======
+  >>>>>>> edd1987ad6ce60035ec8e23b4849516df5df7137
       "react-native-web": "^0.11.7",
       "react-navigation": "^3.12.0",
       "react-navigation-stack": "^1.10.3",
@@ -1926,11 +1928,6 @@ Lockfile:
       raw-body "2.4.0"
       type-is "~1.6.17"
   
-  boolbase@^1.0.0, boolbase@~1.0.0:
-    version "1.0.0"
-    resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
-    integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
-  
   boxen@^3.0.0:
     version "3.2.0"
     resolved "https://registry.yarnpkg.com/boxen/-/boxen-3.2.0.tgz#fbdff0de93636ab4450886b6ff45b92d098f45eb"
@@ -2585,33 +2582,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/css-parse/-/css-parse-1.0.4.tgz#38b0503fbf9da9f54e9c1dbda60e145c77117bdd"
     integrity sha1-OLBQP7+dqfVOnB29pg4UXHcRe90=
   
-  css-select@^2.0.2:
-    version "2.1.0"
-    resolved "https://registry.yarnpkg.com/css-select/-/css-select-2.1.0.tgz#6a34653356635934a81baca68d0255432105dbef"
-    integrity sha512-Dqk7LQKpwLoH3VovzZnkzegqNSuAziQyNZUcrdDM401iY+R5NkGBXGmtO05/yaXQziALuPogeG0b7UAgjnTJTQ==
-    dependencies:
-      boolbase "^1.0.0"
-      css-what "^3.2.1"
-      domutils "^1.7.0"
-      nth-check "^1.0.2"
-  
   css-stringify@1.0.5:
     version "1.0.5"
     resolved "https://registry.yarnpkg.com/css-stringify/-/css-stringify-1.0.5.tgz#b0d042946db2953bb9d292900a6cb5f6d0122031"
     integrity sha1-sNBClG2ylTu50pKQCmy19tASIDE=
-  
-  css-tree@^1.0.0-alpha.37:
-    version "1.0.0-alpha.39"
-    resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.0.0-alpha.39.tgz#2bff3ffe1bb3f776cf7eefd91ee5cba77a149eeb"
-    integrity sha512-7UvkEYgBAHRG9Nt980lYxjsTrCyHFN53ky3wVsDkiMdVqylqRt+Zc+jm5qw7/qyOvN2dHSYtX0e4MbCCExSvnA==
-    dependencies:
-      mdn-data "2.0.6"
-      source-map "^0.6.1"
-  
-  css-what@^3.2.1:
-    version "3.2.1"
-    resolved "https://registry.yarnpkg.com/css-what/-/css-what-3.2.1.tgz#f4a8f12421064621b456755e34a03a2c22df5da1"
-    integrity sha512-WwOrosiQTvyms+Ti5ZC5vGEK0Vod3FTt1ca+payZqvKuGJF+dq7bG63DstxtN0dpm6FxY27a/zS3Wten+gEtGw==
   
   css@~1.0.8:
     version "1.0.8"
@@ -2800,28 +2774,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
     integrity sha512-Dj6Wk3tWyTE+Fo1rW8v0Xhwk80um6yFYKbuAxc9c3EZxIHFDYwbi34Uk42u1CdnIiVorvt4RmlSDjIPyzGC2ew==
   
-  dom-serializer@0:
-    version "0.2.2"
-    resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.2.2.tgz#1afb81f533717175d478655debc5e332d9f9bb51"
-    integrity sha512-2/xPb3ORsQ42nHYiSunXkDjPLBaEj/xTwUO4B7XCZQTRk7EBtTOPaygh10YAAh2OI1Qrp6NWfpAhzswj0ydt9g==
-    dependencies:
-      domelementtype "^2.0.1"
-      entities "^2.0.0"
-  
   dom-walk@^0.1.0:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
     integrity sha1-ZyIm3HTI95mtNTB9+TaroRrNYBg=
-  
-  domelementtype@1:
-    version "1.3.1"
-    resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.1.tgz#d048c44b37b0d10a7f2a3d5fee3f4333d790481f"
-    integrity sha512-BSKB+TSpMpFI/HOxCNr1O8aMOTZ8hT3pM3GQ0w/mWRmkhEDSFJkkyzz4XQsBV44BChwGkrDfMyjVD0eA2aFV3w==
-  
-  domelementtype@^2.0.1:
-    version "2.0.1"
-    resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-2.0.1.tgz#1f8bdfe91f5a78063274e803b4bdcedf6e94f94d"
-    integrity sha512-5HOHUDsYZWV8FGWN0Njbr/Rn7f/eWSQi1v7+HsUVwXgn8nWWlL64zKDkS0n8ZmQ3mlWOMuXOnR+7Nx/5tMO5AQ==
   
   domexception@^1.0.1:
     version "1.0.1"
@@ -2829,14 +2785,6 @@ Lockfile:
     integrity sha512-raigMkn7CJNNo6Ihro1fzG7wr3fHuYVytzquZKX5n0yizGsTcYgzdIUwj1X9pK0VvjeihV+XiclP+DjwbsSKug==
     dependencies:
       webidl-conversions "^4.0.2"
-  
-  domutils@^1.7.0:
-    version "1.7.0"
-    resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
-    integrity sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==
-    dependencies:
-      dom-serializer "0"
-      domelementtype "1"
   
   dot-prop@^4.1.0:
     version "4.2.0"
@@ -2891,11 +2839,6 @@ Lockfile:
     integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
     dependencies:
       once "^1.4.0"
-  
-  entities@^2.0.0:
-    version "2.0.0"
-    resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
-    integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
   
   envinfo@^5.7.0:
     version "5.12.1"
@@ -5275,11 +5218,6 @@ Lockfile:
     dependencies:
       buffer-alloc "^1.1.0"
   
-  mdn-data@2.0.6:
-    version "2.0.6"
-    resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
-    integrity sha512-rQvjv71olwNHgiTbfPZFkJtjNMciWgswYeciZhtvWLO8bmX3TnhyA62I6sTWOyZssWHJJjY6/KiWwqQsWWsqOA==
-  
   media-typer@0.3.0:
     version "0.3.0"
     resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -6065,13 +6003,6 @@ Lockfile:
       gauge "~2.7.3"
       set-blocking "~2.0.0"
   
-  nth-check@^1.0.2:
-    version "1.0.2"
-    resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
-    integrity sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==
-    dependencies:
-      boolbase "~1.0.0"
-  
   nullthrows@^1.1.0:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
@@ -6856,14 +6787,6 @@ Lockfile:
     version "2.4.0"
     resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
     integrity sha512-pWvZFlyIHiuxLugLioq97vXiaGSovFXEyxt76wQtbq0gxv4dGXMPqYow46UmpwOgeJpBhqL1E0EKxnfJRrFz5w==
-  
-  react-native-svg@^9.13.6:
-    version "9.13.6"
-    resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.13.6.tgz#5365fba2bc460054b90851e71f2a71006a5d373f"
-    integrity sha512-vjjuJhEhQCwWjqsgWyGy6/C/LIBM2REDxB40FU1PMhi8T3zQUwUHnA6M15pJKlQG8vaZyA+QnLyIVhjtujRgig==
-    dependencies:
-      css-select "^2.0.2"
-      css-tree "^1.0.0-alpha.37"
   
   react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
     version "1.4.1"

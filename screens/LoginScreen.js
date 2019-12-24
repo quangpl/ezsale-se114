@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop:20,
     backgroundColor:"#189DFF",
-    color:"#fff"
   },
 
   btnGroup: {
