@@ -65,12 +65,27 @@ UserModel.getByToken = async (token) => {
   }).exec();
 };
 
+UserModel.updateTokenNotify = async ({token,tokenNotify}) => {
+  if(!token){
+    return false;
+  }
+  return await UserModel.updateOne(
+    {
+      token
+    },
+    {
+      token_notify: tokenNotify
+    }
+  ).exec();
+};
+
 UserModel.getFollowing = async token => {
   const user =  await UserModel.findOne({
     token
   }).exec();
+
   const result = await Promise.all(user.following.map(async e=>{
-    const product = await ProductModel.getById(e);
+   return await ProductModel.getById(e);
   }));
   return result;
 };
