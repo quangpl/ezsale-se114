@@ -63,9 +63,8 @@ class HomeScreen extends React.Component{
     }
     const productService = new  ProductService();
     const hotProducts = await productService.getHotProducts();
-    const NewProducts = await productService.getNewProducts({page:this.state.page,perpage:10});
+    const NewProducts = await productService.getNewProducts({page:this.state.page,perpage:12}); //default 12
 
-    console.log(hotProducts);
     await this.setState({
       productsHot:hotProducts,
       productsNew:NewProducts
@@ -74,28 +73,7 @@ class HomeScreen extends React.Component{
     await this.setState({
       isLoad: false
     })
-    // console.log("init");
-    // axios.get('http://localhost:3000/Hot')
-    // .then(res=>{
-    //   console.log(res.data);
-    //   this.setState({
-    //    hotProducts
-    //   })
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    //   })
-
-    // axios.get('http://localhost:3000/New')
-    //   .then(res=>{
-    //     this.setState({
-    //       productsNew:res.data
-    //     })
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //     })
-
+ 
     }
     onPress=()=>{
       console.log("pp")

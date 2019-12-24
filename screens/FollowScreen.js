@@ -2,36 +2,20 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
-import {connect} from "react-redux";
-import { withNavigationFocus } from "react-navigation";
-
+//
 import HorizontalItem from "../components/HorizontalItem";
 
 
-class FollowScreen extends React.Component {
+export default class FollowScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state={
         products:[],
-        items: [],
-        user: {}
     };
   }
-  componentDidMount(){
-    if (this.props.isFocused) {
-      console.log(this.props.user.authInfo);
-        if (!this.props.user.authInfo) {
-          alert("Vui lòng đăng nhập để sử dụng tính năng này");
-          this.props.navigation.navigate("Login");
-          return false;
-        }
-    }
-    //const user = new UserService();
-
-    //const productData = await productService.getProductsByID();
+  async componentDidMount(){
 
   }
-  
   render(){
   return (
     
@@ -49,10 +33,6 @@ class FollowScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  items: state.items,
-  user:state.user
-});
 
 FollowScreen.navigationOptions = {
   title: "Theo dõi",
@@ -74,4 +54,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8F9FA"
   }
 });
-export default connect(mapStateToProps)(withNavigationFocus(FollowScreen));
