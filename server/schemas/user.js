@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema(
   {
     name: {
-      type:String,
+      type: String,
       required: true
     },
     point: {
       type: Number,
-      default:0
+      default: 0
     },
     email: {
       type: String,
@@ -21,11 +21,14 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
+    following: {
+      type: [mongoose.Types.ObjectId]
+    },
     token: {
       type: String,
       required: true,
-      default:randomstring.generate(20) + Date.now(),
-    },
+      default: randomstring.generate(20) + Date.now()
+    }
   },
   {
     timestamps: true,

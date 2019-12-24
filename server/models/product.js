@@ -12,9 +12,10 @@ ProductModel.add = async ({
   channel,
   url,
   crawl_info,
-  stock_price
+  stock_price,
+  title
 }) => {
-  let newProduct = new Product({
+  let newProduct = new ProductModel({
     created_by,
     image,
     discount_rate,
@@ -23,6 +24,7 @@ ProductModel.add = async ({
     price,
     crawl_info,
     stock_price,
+    title,
     history: [
       {
         price,

@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   logo: {
-    flex: 0.3,
+    flex: 0.4,
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",

@@ -15,6 +15,7 @@ import { Image, Button, CheckBox } from "react-native-elements";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import UserService from "../services/user";
+import { LinearGradient } from "expo-linear-gradient";
 
  class LoginScreen extends React.Component {
   constructor(props) {
@@ -126,11 +127,12 @@ import UserService from "../services/user";
     );
   }
 }
+LoginScreen.navigationOptions = {
+  header:null
+};
 export default connect()(LoginScreen);
 
-LoginScreen.navigationOptions = {
-  header: null
-};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   logo: {
-    flex: 0.3,
+    flex: 0.4,
     flexDirection: "column",
     justifyContent: "flex-end",
     alignContent: "flex-end",

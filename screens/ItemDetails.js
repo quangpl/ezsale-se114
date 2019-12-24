@@ -3,49 +3,14 @@ import { ScrollView, StyleSheet, Text, View, Image} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
-import {LineChart} from "react-native-chart-kit";
+//import {LineChart} from "react-native-chart-kit";
 import { Button } from 'react-native-elements';
 import {Dimensions} from 'react-native';
 
 export default class ItemDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state={
-        product:[]
-    };
-  }
-  
-  // componentDidMount(){
-  //   if(navigation.getParam('groupID')==2)
-  //   { var a = navifation.getParam('itemID')
-  //     axios.get('http://localhost:4000/new?id{a}')
-  //   .then(res=>{
-  //     console.log(res.data);
-  //     this.setState({
-  //       product:res.data
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.error(error);
-  //     })
-  //   }
-  //   else
-  //   {
-  //     axios.get('http://localhost:4000/Hot')
-  //   .then(res=>{
-  //     console.log(res.data);
-  //     this.setState({
-  //       productsHot:res.data
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.error(error);
-  //     })
-  //   }
-  // }
-
+ 
     render(){
-      const navigation = this.props.navigation
+        const data = this.props.navigation.getParam("value"); //this,props.data
         const line = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
@@ -55,95 +20,121 @@ export default class ItemDetails extends React.Component {
               },
             ],
           };
-        const product = this.state
-        
         return (
-        <View style={{flexDirection:'column',alignContent:'space-between', paddingTop:30}}>
+          <View
+            style={{
+              flexDirection: "column",
+              alignContent: "space-between",
+              paddingTop: 30
+            }}
+          >
             <View style={styles.image}>
-            <Image
+              <Image
                 style={{ width: 150, height: 150 }}
                 source={{
-                uri:
-                    "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
+                  uri: data.image
                 }}
-            />
+              />
             </View>
             <View style={styles.info}>
-                <Text style={styles.infoName}>
-                Máy Đọc Sách All New Kindle 2019
-                </Text>
-                <View>
-                    <Text style={styles.infoPrice}> 2.000.000đ</Text>
-                    <Text style={styles.infoDiscount}> 2.500.000đ</Text>
-                </View>
-            </View> 
+              <Text style={styles.infoName}>{data.title}</Text>
+              <View>
+                <Text style={styles.infoPrice}> {data.price}đ</Text>
+                <Text style={styles.infoDiscount}>{data.stock_price}đ</Text>
+              </View>
+            </View>
             <View style={styles.btnGroup}>
-             
-                <Button 
+              <Button
                 icon={
-                    <Icon
+                  <Icon
                     name="shopping-cart"
-                    type="font-awesome"
+                    type="font-awesome"
                     color="#fff"
-                    iconStyle={{paddingBottom:5,paddingRight:5}}
-                                                        />
-                  }
-                  iconLeft
-                buttonStyle={styles.btn} size="large" type="outline" title="Mua" titleStyle={{ color:"#fff"}}
-                />
-                
-                <Button buttonStyle={styles.btnReg} size="large" type="clear" title="Theo Dõi"/>
-            </View>  
-            <View>
-            <LineChart
+                    iconStyle={{ paddingBottom: 5, paddingRight: 5 }}
+                  />
+                }
+                iconLeft
+                buttonStyle={styles.btn}
+                size="large"
+                type="outline"
+                title="Mua"
+                titleStyle={{ color: "#fff" }}
+                onPress={() => {
+                  alert("Dẫn đến tiki link");
+                }}
+              />
+
+              <Button
+                buttonStyle={styles.btnReg}
+                size="large"
+                type="clear"
+                title="Theo Dõi"
+                onPress={() => {
+                  alert(
+                    "Nếu chưa đăng nhập thì đăng nhập, đăng nhập rồi thì xài api theo dõi"
+                  );
+                }}
+              />
+            </View>
+            {/* <View>
+              <LineChart
                 data={{
-                labels: ["January", "February", "March", "April", "May", "June"],
-                datasets: [
+                  labels: [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June"
+                  ],
+                  datasets: [
                     {
-                    data: [
+                      data: [
                         Math.random() * 100,
                         Math.random() * 100,
                         Math.random() * 100,
                         Math.random() * 100,
                         Math.random() * 100,
                         Math.random() * 100
-                    ]
+                      ]
                     }
-                ]
+                  ]
                 }}
                 width={Dimensions.get("window").width} // from react-native
                 height={230}
                 yAxisLabel={"$"}
                 yAxisSuffix={"k"}
                 chartConfig={{
-                //backgroundColor: "#e26a00",
-                backgroundGradientFrom: "#0895fc",
-                backgroundGradientTo: "#61bcff",
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
+                  //backgroundColor: "#e26a00",
+                  backgroundGradientFrom: "#0895fc",
+                  backgroundGradientTo: "#61bcff",
+                  decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) =>
+                    `rgba(255, 255, 255, ${opacity})`,
+                  style: {
                     //borderRadius: 16
-                },
-                propsForDots: {
+                  },
+                  propsForDots: {
                     r: "6",
                     strokeWidth: "2",
                     stroke: "#ffa726"
-                }
+                  }
                 }}
                 bezier
                 style={{
-                marginVertical: 8,
-                //borderWidth: 5
+                  marginVertical: 8,
+                  //borderRadius: 16,
+                  marginTop: 20
                 }}
-            />
-        </View>
-      </View>           
+              />
+            </View> */}
+          </View>
         );
 } 
 }
 ItemDetails.navigationOptions = {
-    header: null /*Change to*/
+    header: null
   };
   const styles = StyleSheet.create({
     container: {

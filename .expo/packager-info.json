@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://g3-utv.anonymous.ezsale-se114.exp.direct",
   "packagerNgrokUrl": "https://packager.g3-utv.anonymous.ezsale-se114.exp.direct",
-  "ngrokPid": 1948,
+  "ngrokPid": 6451,
   "devToolsPort": 19002,
   "packagerPort": 19001,
-  "packagerPid": 1922
+  "packagerPid": 6431
 }
