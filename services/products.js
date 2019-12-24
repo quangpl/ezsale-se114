@@ -6,13 +6,27 @@ export default class ProductService {
     return res.data.payload.products;
   }
 
-  async getNewProducts() {
-    const res = await axios.get(`${URL_BACK_END}/api/products/new`);
+  async getNewProducts({ page, perPage }) {
+    const res = await axios.get(
+      `${URL_BACK_END}/api/products/new?page=${page}&perPage=${perPage}`
+    );
     return res.data.payload.products;
   }
 
-  async getProductsByID(token_Value) {
-    const res = await axios.get(`${URL_BACK_END}/api/users/following?token=${token_Value}`);
+  async getProductById(id) {
+    const res = await axios.get(
+      `${URL_BACK_END}/api/products/${id}`
+    );
+    return res.data.payload.product;
+  }
+
+   async getFollowingByToken(token) {
+    const res = await axios.get(
+      `${URL_BACK_END}/api/users/following?token${token}`
+    );
     return res.data.payload.products;
   }
+
+
+ 
 }
