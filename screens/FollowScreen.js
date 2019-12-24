@@ -2,10 +2,23 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
-
+//
 import HorizontalItem from "../components/HorizontalItem";
-export default function FollowScreen() {
+
+
+export default class FollowScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+        products:[],
+    };
+  }
+  async componentDidMount(){
+
+  }
+  render(){
   return (
+    
     <ScrollView style={styles.container}>
       <HorizontalItem />
       <HorizontalItem />
@@ -17,7 +30,9 @@ export default function FollowScreen() {
       <HorizontalItem />
     </ScrollView>
   );
+  }
 }
+
 
 FollowScreen.navigationOptions = {
   title: "Theo dõi",

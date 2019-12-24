@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     flex: 0.25,
     justifyContent: "flex-end",
     alignContent: "flex-end",
-    flexDirection: "column"
+    flexDirection: "column",
+    marginTop:20,
   },
 
   input: {
@@ -170,11 +171,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
 
-  checkbox: {
-    flex: 0.1,
-    flexDirection: "row"
-  },
-
   btn: {
     borderRadius: 25,
     width: 200,
@@ -184,16 +180,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: 200,
     alignSelf: "center",
-    marginTop: 20,
-    backgroundColor: "#189DFF"
+    marginTop:20,
+    backgroundColor:"#189DFF",
+    color:"#fff"
   },
 
   btnGroup: {
     flex: 0.35,
-    marginTop: 20,
-    alignContent: "space-between"
-  },
-  title: {
-    fontSize: 24
+    marginTop:35,
   }
 });

@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, TouchableHighlight } from "react-native";
 
 import ProductService from "../services/products"
 import React from 'react';
@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 
 import Carousel from 'react-native-snap-carousel';
 
-import { Icon } from "react-native-elements";
+import { Icon,Button } from "react-native-elements";
 import axios from "axios";
 import SearchEngie from '../components/SearchEngine'
 import { MonoText } from '../components/StyledText';
@@ -33,7 +33,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import store from "../store"
 import {addItem, login, auth} from "../store/actions"
 import UserService from "../services/user"
- class HomeScreen extends React.Component{
+class HomeScreen extends React.Component{
   
   constructor(props) {
     super(props);
@@ -41,13 +41,16 @@ import UserService from "../services/user"
         productsNew:[],
         productsHot:[],
         isLogin : false,
-        isLoad: true
+        isLoad: true,
+        page:1,
+        
     };
   }
 
   _renderItem = ({item, index}) => {
     return (
       <VerticalProduct key={item.id} itemData={item}/>
+    
     );
 }
 
@@ -58,38 +61,25 @@ import UserService from "../services/user"
       const authInfo = await user.auth();
       store.dispatch(auth(authInfo));
     }
-    const productService = new ProductService();
+    const productService = new  ProductService();
     const hotProducts = await productService.getHotProducts();
-    console.log(hotProducts);
+    const NewProducts = await productService.getNewProducts({page:this.state.page,perpage:12}); //default 12
+
     await this.setState({
-      productsHot:hotProducts
+      productsHot:hotProducts,
+      productsNew:NewProducts
     });
 
     await this.setState({
       isLoad: false
     })
-    // console.log("init");
-    // axios.get('http://localhost:3000/Hot')
-    // .then(res=>{
-    //   console.log(res.data);
-    //   this.setState({
-    //    hotProducts
-    //   })
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    //   })
-
-    // axios.get('http://localhost:3000/New')
-    //   .then(res=>{
-    //     this.setState({
-    //       productsNew:res.data
-    //     })
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //     })
-
+ 
+    }
+    onPress=()=>{
+      console.log("pp")
+    }
+    _onPressProduct(item){
+      this.props.navigation.navigate("Detail",{value:item});
     }
 
   render(){
@@ -112,7 +102,16 @@ import UserService from "../services/user"
                       this._carousel = c;
                     }}
                     data={this.state.productsHot}
-                    renderItem={this._renderItem}
+                    renderItem={({ item }) => (
+                      <View style={styles.wrapper}>
+                        <VerticalProduct
+                          onPressProduct={()=>{
+                            this._onPressProduct(item);
+                          }}
+                          itemData={item}
+                        />
+                      </View>
+                    )} 
                     sliderWidth={300}
                     itemWidth={100}
                   />
@@ -125,28 +124,29 @@ import UserService from "../services/user"
                 </View>
               </View>
 
-              {/* <View style={styles.containerMostComparable}>
+              <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
-                      <FlatList
-                      data={productsNew}
-                      keyExtractor={productsNew.id}
-                      contentContainerStyle={styles.containerFlat}     //has to be unique   
-                      renderItem={({item}) =>
-                    <TouchableOpacity onPress={() => 
-                      console.log(item.id)
-                    }>
-                      <View style={styles.wrapper} >
-                          <VerticalProduct itemData={item} />
-                      </View>
-                    </TouchableOpacity>
-                    } //method to render the data in the way you want using styling u need
-                      horizontal={false}
-                      numColumns={3}
-                      onEndReachedThreshold={0.1}
-                      
-                      
+                <FlatList
+                  data={productsNew}
+                  keyExtractor={item => {
+                    return item._id;
+                  }}
+                  contentContainerStyle={styles.containerFlat} //has to be unique
+                  renderItem={({ item }) => (
+                    <View style={styles.wrapper}>
+                      <VerticalProduct
+                        onPressProduct={()=>{
+                          this._onPressProduct(item);
+                        }}
+                        itemData={item}
                       />
-              </View>  */}
+                    </View>
+                  )} //method to render the data in the way you want using styling u need
+                  horizontal={false}
+                  numColumns={3}
+                  onEndReachedThreshold={0.1}
+                />
+              </View>
             </View>
           </ScrollView>
         </>
@@ -289,7 +289,8 @@ componentHotItem: {
 },
 wrapper:{
   flex:1,
-  paddingHorizontal:8
+  paddingHorizontal:8,
+  zIndex:2,
 },
 containerFlat:{
 paddingHorizontal:8,

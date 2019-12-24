@@ -3,14 +3,15 @@ import { ScrollView, StyleSheet, Text, View, Image} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
-import {LineChart} from "react-native-chart-kit";
+//import {LineChart} from "react-native-chart-kit";
 import { Button } from 'react-native-elements';
 import {Dimensions} from 'react-native';
+import { TextInput } from 'react-native';
 
 export default class ItemDetails extends React.Component {
  
     render(){
-        const data = this.props.navigation.getParam("data");
+        const data = this.props.navigation.getParam("value"); //this,props.data
         const line = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
@@ -76,7 +77,7 @@ export default class ItemDetails extends React.Component {
                 }}
               />
             </View>
-            <View>
+            {/* <View>
               <LineChart
                 data={{
                   labels: [
@@ -128,14 +129,35 @@ export default class ItemDetails extends React.Component {
                   marginTop: 20
                 }}
               />
-            </View>
+            </View> */}
           </View>
         );
 } 
 }
 ItemDetails.navigationOptions = {
-    header: null
-  };
+  title: "Chi tiết sản phẩm",
+
+  headerStyle: {
+    backgroundColor: "#199eff"
+  },
+  headerBackground: (
+    <LinearGradient
+      colors={["#237AE4", "#6C5CE7"]}
+      style={{ flex: 1, borderWidth: 0 }}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+    />
+  ),
+  headerStyle: {
+    height: 50
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold"
+  }
+};
+
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,

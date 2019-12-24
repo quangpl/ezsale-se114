@@ -1,0 +1,53 @@
+{
+    "notification":[
+        {
+            "receiver":"1",
+            "type":"down",
+            "price_change":"50000",
+            "detail":"Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+        },
+        {
+            "receiver":"1",
+            "type":"up",
+            "price_change":"250000",
+            "detail":"Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+        },
+        {
+            "receiver":"2",
+            "type":"down",
+            "price_change":"50000",
+            "detail":"Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+        },
+        {
+            "receiver":"2",
+            "type":"up",
+            "price_change":"250000",
+            "detail":"Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+        },
+        {
+            "receiver":"3",
+            "type":"down",
+            "price_change":"50000",
+            "detail":"Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+        },
+        {
+            "receiver":"3",
+            "type":"up",
+            "price_change":"250000",
+            "detail":"Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+        },
+        {
+            "receiver":"4",
+            "type":"down",
+            "price_change":"50000",
+            "detail":"Máy Giặt Cửa Trước Samsung Inverter Addwash WW85K54E0UW/SV (8.5kg) - Hàng Chính Hãng"
+        },
+        {
+            "receiver":"4",
+            "type":"up",
+            "price_change":"250000",
+            "detail":"Smart Tivi Samsung 49 inch UHD 4K UA49NU7100KXXV - Hàng chính hãng"
+        }
+
+    ]
+}

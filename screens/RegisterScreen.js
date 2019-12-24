@@ -58,6 +58,8 @@ ToastAndroid.showWithGravity(
       );
   }
   render(){
+    const navigation = this.props.navigation
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
@@ -143,8 +145,8 @@ const styles = StyleSheet.create({
   logo: {
     flex: 0.4,
     flexDirection: "column",
-    justifyContent: "flex-end",
-    alignContent: "flex-end",
+    justifyContent: "center",
+    alignContent: "center",
     alignItems: "center"
   },
 

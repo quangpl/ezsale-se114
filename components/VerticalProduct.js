@@ -14,17 +14,24 @@ export default class VerticalProduct extends React.Component {
     super(props);
   }
 
+  stringprocess=(str)=>{
+    if(str.length>27){
+      return str.substring(0,27)+"..."
+    }
+    else {
+      return str;
+    }
+  }
   componentDidMount(){
     console.log(this.props.navigation);
   }
   render() {
     const {itemData} = this.props;
+    // const data = this.props.navigation.getParam("value");
     return (
       <TouchableOpacity
-        onPress={() => {
-          // this.props.navigation.navigate("Detail", {
-          //   data: itemData
-          // });
+        onPress={(itemData) => {
+         this.props.onPressProduct(itemData);
         }}
       >
         <View style={styles.Item}>
@@ -33,7 +40,7 @@ export default class VerticalProduct extends React.Component {
             source={{ uri: itemData.image }}
           />
           <View style={styles.info}>
-            <Text style={styles.infoName}>{itemData.title}</Text>
+            <Text style={styles.infoName}>{this.stringprocess(itemData.title)}</Text>
             <View>
               <Text style={styles.infoPrice}> {itemData.price}đ</Text>
               <Text style={styles.infoDiscount}>{itemData.stock_price}đ</Text>
@@ -54,6 +61,7 @@ const styles = StyleSheet.create({
   },
   Item: {
     flexDirection: "column"
+
   },
   container: {
     marginTop: 20,
@@ -64,19 +72,28 @@ const styles = StyleSheet.create({
   },
   infoName: {
     fontSize: 13,
-    fontWeight: "bold",
+    fontWeight: '300',
     overflow: "hidden",
-    height: 25
+    alignSelf:'center',
+    //height: 25,
+    width:95,
+    height:48,
+    //flexShrink:1
+    
   },
   infoPrice: {
     fontSize: 13,
     color: "#FF7C71",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    alignSelf:'center'
+
   },
   infoDiscount: {
     fontSize: 13,
     color: "#BEBEBE",
-    textDecorationLine: "line-through"
+    textDecorationLine: "line-through",
+    alignSelf:'center'
+
   },
   info: {
     //flex:0.7,
