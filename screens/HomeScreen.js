@@ -78,6 +78,9 @@ class HomeScreen extends React.Component{
     onPress=()=>{
       console.log("pp")
     }
+    _onPressProduct(item){
+      this.props.navigation.navigate("Detail",{value:item});
+    }
 
   render(){
   const{productsHot, productsNew}=this.state;
@@ -114,29 +117,27 @@ class HomeScreen extends React.Component{
 
               <View style={styles.containerMostComparable}>
                 <Text style={styles.headerText}>Mới nhất</Text>
-                      <FlatList
-                      data={productsNew}
-                      keyExtractor={(item)=>{
-                       return item._id;
-                      }}
-                      contentContainerStyle={styles.containerFlat}     //has to be unique   
-                      renderItem={({item}) =>
-                    <TouchableHighlight>
-                      <View style={styles.wrapper} 
-                      onPress={()=>this.props.navigation.navigate('Detail',{value:item})}>
-                          <VerticalProduct itemData={item}  />
-                          <Button  title="la"></Button>
-
-                      </View>
-                    </TouchableHighlight>
-                    } //method to render the data in the way you want using styling u need
-                      horizontal={false}
-                      numColumns={3}
-                      onEndReachedThreshold={0.1}
-                      
-                      
+                <FlatList
+                  data={productsNew}
+                  keyExtractor={item => {
+                    return item._id;
+                  }}
+                  contentContainerStyle={styles.containerFlat} //has to be unique
+                  renderItem={({ item }) => (
+                    <View style={styles.wrapper}>
+                      <VerticalProduct
+                        onPressProduct={()=>{
+                          this._onPressProduct(item);
+                        }}
+                        itemData={item}
                       />
-              </View> 
+                    </View>
+                  )} //method to render the data in the way you want using styling u need
+                  horizontal={false}
+                  numColumns={3}
+                  onEndReachedThreshold={0.1}
+                />
+              </View>
             </View>
           </ScrollView>
         </>

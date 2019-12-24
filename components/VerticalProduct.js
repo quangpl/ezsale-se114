@@ -27,12 +27,11 @@ export default class VerticalProduct extends React.Component {
   }
   render() {
     const {itemData} = this.props;
+    // const data = this.props.navigation.getParam("value");
     return (
       <TouchableOpacity
-        onPress={() => {
-          // this.props.navigation.navigate("Detail", {
-          //   data: itemData
-          // });
+        onPress={(itemData) => {
+         this.props.onPressProduct(itemData);
         }}
       >
         <View style={styles.Item}>
