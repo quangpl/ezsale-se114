@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "135448173008",
+    "firebase_url": "https://ezsale-bc53d.firebaseio.com",
+    "project_id": "ezsale-bc53d",
+    "storage_bucket": "ezsale-bc53d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135448173008:android:2e0a26fede19f34469c1d5",
+        "android_client_info": {
+          "package_name": "com.ezlife.ezsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135448173008-gvkbe6r8gq9ec0p9enr56tomsv1u665f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCJ2cHoZbQa7QfHckPodThlnMJSrlgy7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135448173008-gvkbe6r8gq9ec0p9enr56tomsv1u665f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
