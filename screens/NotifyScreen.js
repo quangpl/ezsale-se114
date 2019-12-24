@@ -1,13 +1,14 @@
 import React from "react";
 import { ExpoConfigView } from "@expo/samples";
-import { ScrollView, StyleSheet, Text, FlatList } from "react-native";
+import { ScrollView, StyleSheet, Text, FlatList,Alert } from "react-native";
 import data from "../mock-db/db.json"
 import { LinearGradient } from "expo-linear-gradient";
-
+import { withNavigationFocus } from "react-navigation";
+import {connect} from "react-redux";
 import axios from "axios";
 import TextItem from "../components/TextItem";
 import Notification from "../components/Notification";
-export default class NotifyScreen extends React.Component {
+class NotifyScreen extends React.Component {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
    * we just wanted to give you a quick view of your config.
@@ -15,7 +16,9 @@ export default class NotifyScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      NotifyScreen: []
+      NotifyScreen: [],
+      items: [],
+      user: {}
     };
   }
   componentDidMount() {
@@ -23,6 +26,16 @@ export default class NotifyScreen extends React.Component {
       this.setState({
         NotifyScreen: data
       });
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.isFocused) {
+      console.log(this.props.user.authInfo);
+        if (!this.props.user.authInfo) {
+          Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+          this.props.navigation.navigate("Login");
+          return false;
+        }
+    }
   }
   static navigationOptions = {
   title: "Thông báo",
@@ -125,8 +138,14 @@ export default class NotifyScreen extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff"
   }
 });
+export default connect(mapStateToProps)(withNavigationFocus(NotifyScreen));
+

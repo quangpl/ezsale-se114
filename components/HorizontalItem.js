@@ -6,7 +6,24 @@ import { Button } from "react-native-elements";
 import { Icon } from "react-native-elements";
 
 export default class HorizontalItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  stringprocess=(str)=>{
+    if(str.length>27){
+      return str.substring(0,27)+"..."
+    }
+    else {
+      return str;
+    }
+  }
+  _onPressProduct(item){
+    this.props.navigation.navigate("Detail",{value:item});
+  }
   render() {
+    const {itemData} = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.left}>
@@ -14,18 +31,18 @@ export default class HorizontalItem extends React.Component {
             style={{ width: 90, height: 90 }}
             source={{
               uri:
-                "https://salt.tikicdn.com/cache/550x550/ts/product/41/e1/79/f4541de59d4c16cfd2d37797909540b2.jpg"
+              itemData.image
             }}
           />
         </View>
         <View style={styles.right}>
           <View style={styles.info}>
             <Text style={styles.infoName}>
-              Máy Đọc Sách All New Kindle 2019
+            {this.stringprocess(itemData.title)}            
             </Text>
             <View>
-              <Text style={styles.infoPrice}> 2.000.000đ</Text>
-              <Text style={styles.infoDiscount}> 2.500.000đ</Text>
+              <Text style={styles.infoPrice}> {itemData.price}đ</Text>
+              <Text style={styles.infoDiscount}> {itemData.stock_price}đ</Text>
             </View>
           </View>
           <View style={styles.action}>

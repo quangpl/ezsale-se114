@@ -183,7 +183,10 @@ HomeScreen.navigationOptions = {
           marginTop: 3,
           flex: 0.9
         }}
-      ></TextInput>
+        placeholder="Nhập đường link sản phẩm"
+      >
+        
+      </TextInput>
       <Icon
         style={{
           flex:0.1

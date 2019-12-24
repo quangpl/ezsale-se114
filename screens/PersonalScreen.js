@@ -1,5 +1,5 @@
 import React from "react";
-import { Text , ToastAndroid} from "react-native";
+import { Text , ToastAndroid,Alert} from "react-native";
 import { ExpoConfigView } from "@expo/samples";
 import {connect} from "react-redux";
 import { Avatar,Icon,Button } from "react-native-elements";
@@ -100,7 +100,7 @@ class PersonalScreen extends React.Component {
                    // await userService.logout();
                     // store.dispatch(logout());
                     
-                    this.props.navigation.navigate("Home");
+                    this.props.navigation.navigate("Login");
                    setTimeout(()=>{
                       store.dispatch(logout());
                    },1000)

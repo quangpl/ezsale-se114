@@ -62,7 +62,11 @@ FollowStack.path = "";
 
 const PersonalStack = createStackNavigator(
   {
-    Personal: PersonalScreen
+    Personal: PersonalScreen,
+    Home: HomeScreen,
+    Register: RegisterScreen,
+    Detail:ItemDetails,
+    Login:LoginScreen,
   },
   config
 );
@@ -158,7 +162,7 @@ const tabNavigator = createBottomTabNavigator({
   FollowStack,
   NotifyStack,
   PersonalStack,
-  LoginStack,
+  //LoginStack,
 });
 
 tabNavigator.path = '';
