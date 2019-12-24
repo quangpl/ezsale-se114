@@ -25,6 +25,9 @@ ProductModel.add = async ({
     crawl_info,
     stock_price,
     title,
+    followers:[
+      mongoose.Types.ObjectId(created_by)
+    ],
     history: [
       {
         price,

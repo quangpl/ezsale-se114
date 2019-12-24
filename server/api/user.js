@@ -66,11 +66,11 @@ user.password = "";
 });
 
 router.get("/following", async function(req, res, next) {
-  const follows = await UserModel.getFollowing(req.query.token);
+  const products = await UserModel.getFollowing(req.query.token);
 
   res.json({
     error: follows ? false : true,
-    payload: follows
+    payload: products
   });
 });
 
