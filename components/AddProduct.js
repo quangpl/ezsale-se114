@@ -46,10 +46,14 @@ console.log(this.state.url);
               ToastAndroid.SHORT,
               ToastAndroid.CENTER
             );
+            console.log(this.props.navigation)
+            //this.props.navigation.navigate('Detail',{ value: item})
             return true;
         }
     }
   render() {
+    const navigation = this.props.navigation;
+
     return (
       <View
         style={{

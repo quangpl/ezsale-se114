@@ -38,6 +38,6 @@ export default class ProductService {
       token,
       url
     });
-    return res.data;
+    return res.data.payload.product;
   }
 }

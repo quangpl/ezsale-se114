@@ -98,7 +98,9 @@ const styles = StyleSheet.create({
   infoDiscount: {
     fontSize: 13,
     color: "#BEBEBE",
-    textDecorationLine: "line-through"
+    textDecorationLine: "line-through",
+    marginLeft:2
+
   },
   right: {
     flexDirection: "row",

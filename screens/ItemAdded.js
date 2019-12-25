@@ -10,7 +10,6 @@ import { TextInput } from 'react-native';
 import {connect} from "react-redux";
 import { withNavigationFocus } from "react-navigation";
 import ProductService from "../services/products"
-import numeral from 'numeral'
 
 class ItemDetails extends React.Component {
   constructor(props) {
@@ -20,11 +19,6 @@ class ItemDetails extends React.Component {
         user: {},
         isLogin:false,
     };
-  }
-  changCurrent=(str)=>
-  {
-    str = numeral(str).format('0,0');
-    return str;
   }
   followItem = async (data)=>
   {
@@ -55,7 +49,6 @@ class ItemDetails extends React.Component {
 
     render(){
         const data = this.props.navigation.getParam("value"); //this,props.data
-
         const line = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
@@ -88,8 +81,8 @@ class ItemDetails extends React.Component {
               </Text>
 
               <View>
-                <Text style={styles.infoPrice}> {this.changCurrent(data.price)}đ</Text>
-                <Text style={styles.infoDiscount}>{this.changCurrent(data.stock_price)}đ</Text>
+                <Text style={styles.infoPrice}> {data.price}đ</Text>
+                <Text style={styles.infoDiscount}>{data.stock_price}đ</Text>
               </View>
             </View>
             <View style={styles.btnGroup}>
@@ -269,7 +262,7 @@ const mapStateToProps = state => ({
       overflow: "hidden",
       padding: 20,
       color:"red",
-      marginLeft:80,
+      marginLeft:40,
     },
     infoPrice: {
       fontSize: 13,
