@@ -10,11 +10,13 @@ UserModel.register = async ({
   name,
   email,
   password,
+  token
 }) => {
   let newUser = new UserModel({
     name,
     email,
-    password: bcrypt.hashSync(password, DEFAULT_SALT_ROUND)
+    password: bcrypt.hashSync(password, DEFAULT_SALT_ROUND),
+    token
   });
 
   await newUser.save();

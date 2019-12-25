@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const UserModel = require("../models/user")
+const uuidv4 = require("uuid/v4");
 
 /* GET users listing. */
 router.post('/register', async function(req, res, next) {
@@ -14,7 +15,8 @@ router.post('/register', async function(req, res, next) {
     const user = await UserModel.register({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      token: uuidv4()
     });
   res.json({
     error: false,

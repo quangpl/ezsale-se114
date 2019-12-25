@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image,Linking,Alert} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image,Linking,Alert,ToastAndroid} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
@@ -20,8 +20,9 @@ class ItemDetails extends React.Component {
         isLogin:false,
     };
   }
-  _FollowingItem=(data)=>
+  followItem = async (data)=>
   {
+    console.log("click");
           if (this.props.isFocused) {
               if (!this.props.user.authInfo) {
                 Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
@@ -31,11 +32,16 @@ class ItemDetails extends React.Component {
               else
               {
                 const productService = new ProductService();
-                const result_following =  productService.followProduct(
-                  {token: this.props.user.authInfo.payload.token,
-                  productId: data._id}
-                );
-                this.props.navigation.replace('Home')         
+                const result_following = await productService.followProduct({
+                  token: this.props.user.authInfo.payload.token,
+                  productId: data._id
+                });
+                 ToastAndroid.showWithGravity(
+                   "Sản phẩm đã được theo dõi",
+                   ToastAndroid.SHORT,
+                   ToastAndroid.CENTER
+                 );
+
               }
             }
           
@@ -70,7 +76,7 @@ class ItemDetails extends React.Component {
             </View>
             <View style={styles.info}>
               <Text style={styles.infoName}>
-                {data.title}{" "}
+                {data.title}
                 <Text style={styles.discount}>-{data.discount_rate}%</Text>
               </Text>
 
@@ -114,9 +120,10 @@ class ItemDetails extends React.Component {
                 type="clear"
                 title="Theo Dõi"
                 onPress={() => {
-                  this._FollowingItem(data);
-                }}
-              />
+                  this.followItem(data);
+                }
+                }
+              /> 
             </View>
             {/* <View>
               <LineChart
