@@ -9,6 +9,7 @@ import {Dimensions} from 'react-native';
 import { TextInput } from 'react-native';
 import {connect} from "react-redux";
 import { withNavigationFocus } from "react-navigation";
+import ProductService from "../services/products"
 
 class ItemDetails extends React.Component {
   constructor(props) {
@@ -22,17 +23,24 @@ class ItemDetails extends React.Component {
   _FollowingItem=(data)=>
   {
           if (this.props.isFocused) {
-            console.log(this.props.user.authInfo);
               if (!this.props.user.authInfo) {
                 Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
                 this.props.navigation.navigate("Login");
                 return false;
               }
+              else
+              {
+                //console.log(this.props.user.authInfo.payload.token);
+                //console.log(data._id);
+                const productService = new ProductService();
+                const result_following =  ProductService.followProduct(
+                  {token: this.props.user.authInfo.payload.token,
+                  productId: data._id}
+                );
+
+              }
             }
-            else
-            {
-              //follow sp
-            }
+          
   }
 
     render(){

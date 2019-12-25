@@ -6,9 +6,10 @@ import {connect} from "react-redux";
 import HorizontalItem from "../components/HorizontalItem";
 import { withNavigationFocus } from "react-navigation";
 import { FlatList } from 'react-native-gesture-handler';
+import ProductService from "../services/products"
 
 
-export default class FollowScreen extends React.Component {
+class FollowScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -18,41 +19,32 @@ export default class FollowScreen extends React.Component {
         
     };
   }
-  componentDidUpdate(prevProps) {
+ async componentDidUpdate(prevProps) {
     if (this.props.isFocused) {
-      console.log(this.props.user.authInfo);
+      //console.log(this.props.user.authInfo);
         if (!this.props.user.authInfo) {
           Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
           this.props.navigation.navigate("Login");
           return false;
         }
-    }
   }
-  async componentDidMount(){
-    const token = await AsyncStorage.getItem("token");
-    if(token){
-      const user = new UserService();
-      const authInfo = await user.auth();
-      store.dispatch(auth(authInfo));
-      const productService = new  ProductService();
-      const productData = await productService.getFollowingByToken(token)
-      await this.setState({
-        products:productData,
-      });
-    }
-
- 
-  }
+}
+  
   _onPressProduct(item){
     this.props.navigation.navigate("Detail",{value:item});
   }
   
   render(){
+    const productService = new ProductService();
+    console.log(this.props.user.authInfo.payload.token);
+    const productData = productService.getFollowingByToken(
+    this.props.user.authInfo.payload.token)
+    this.state.products=productData
   return (
     
     <ScrollView style={styles.container}>
         <FlatList
-                  data={products}
+                  data={this.state.products}
                   keyExtractor={item => {
                     return item._id;
                   }}
@@ -71,10 +63,10 @@ export default class FollowScreen extends React.Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   items: state.items,
-//   user:state.user
-// });
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
 
 FollowScreen.navigationOptions = {
   title: "Theo dõi",
@@ -97,4 +89,4 @@ const styles = StyleSheet.create({
   },
 
 });
-// export default connect(mapStateToProps)(withNavigationFocus(FollowScreen));
+export default connect(mapStateToProps)(withNavigationFocus(FollowScreen));
