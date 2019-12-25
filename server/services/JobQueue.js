@@ -1,8 +1,10 @@
-import productModel from "../models/product"
-import userModel from "../models/user";
+const productModel = require("../models/product")
+const userModel = require("../models/user");
+const notifyModel = require("../models/notify");
 
-import Tiki from "./Tiki"
-import Notify from "./Notify"
+
+const Tiki = require("./Tiki");
+const Notify = require("./Notify");
 class JobQueue {
     async run(){
         const product = await productModel.getProductToCrawl();
@@ -17,14 +19,25 @@ class JobQueue {
               stock_price: newProduct.list_price
             });
 
-            if(product.price>newProduct.price){
+            if(product.price!==newProduct.price){
                 const followers = product.followers;
                 const idNotifies = await Promise.all(followers.map(async e=>{
                     const user = await userModel.getById(e);
                     return user.token_notify;
                 }))
                 idNotifies.map(async e=>{
-                    const notify = new Notify(e,`Sản phẩm ${product.title} đang giảm giá`,"Mời bạn kiểm tra giá, nếu giá tốt hãy tranh thủ mua ngay nào");
+                    await notifyModel.add({
+                      receiver: e._id,
+                      type: product.price > newProduct.price ? "down" : "up",
+                      price_change: Math.abs(product.price > newProduct.price),
+                      detail: product.title
+                    });
+                    const notify = new Notify(
+                      e.token_notify,
+                      `Sản phẩm ${product.title} đang giảm giá`,
+                      "Mời bạn kiểm tra giá, nếu giá tốt hãy tranh thủ mua ngay nào"
+                    );
+                    await notify.send();
                 })
             }
         }
