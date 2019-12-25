@@ -29,17 +29,24 @@ class FollowScreen extends React.Component {
         }
   }
 }
-  
+
+async componentDidMount(){
+    const productService = new ProductService();
+    const productData = await productService.getFollowingByToken(
+      this.props.user.authInfo.payload.token
+    );
+    console.log(productData);
+    this.setState({
+      products:productData
+    })
+}
+
   _onPressProduct(item){
     this.props.navigation.navigate("Detail",{value:item});
   }
   
   render(){
-    const productService = new ProductService();
-    console.log(this.props.user.authInfo.payload.token);
-    const productData = productService.getFollowingByToken(
-    this.props.user.authInfo.payload.token)
-    this.state.products=productData
+  
   return (
     
     <ScrollView style={styles.container}>

@@ -20,7 +20,7 @@ export default class ProductService {
 
   async getFollowingByToken(token) {
     const res = await axios.get(
-      `${URL_BACK_END}/api/users/following?token${token}`
+      `${URL_BACK_END}/api/users/following?token=${token}`
     );
     return res.data.payload;
   }
