@@ -72,11 +72,11 @@ async componentDidMount(){
   return (
     
     <ScrollView style={styles.container}>
-     {this.state.isLoad?<ActivityIndicator size="large" color="#199EFF" />:(
-          <FlatList
+     {this.state.isLoad?<ActivityIndicator size="large" color="#199EFF" />:this.state.products.length>0?(
+        <FlatList
                   data={this.state.products}
                   keyExtractor={item => {
-                    return item._id;
+                    return item?item._id:0;
                   }}
                   contentContainerStyle={styles.containerFlat} //has to be unique
                   renderItem={({ item }) => (
@@ -88,7 +88,7 @@ async componentDidMount(){
                   />
                   )} //method to render the data in the way you want using styling u need
                   />
-     )}
+     ):<Text>Không có dữ liệu</Text>}
     </ScrollView>
   );
   }
