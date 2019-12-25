@@ -123,6 +123,7 @@ class HomeScreen extends React.Component {
                       )}
                       sliderWidth={300}
                       itemWidth={100}
+                      layoutCardOffset={30}
                     />
                     {/* <FlatList
                     data={productsHot}

@@ -30,14 +30,12 @@ class ItemDetails extends React.Component {
               }
               else
               {
-                //console.log(this.props.user.authInfo.payload.token);
-                //console.log(data._id);
                 const productService = new ProductService();
-                const result_following =  ProductService.followProduct(
+                const result_following =  productService.followProduct(
                   {token: this.props.user.authInfo.payload.token,
                   productId: data._id}
                 );
-
+                this.props.navigation.replace('Home')         
               }
             }
           

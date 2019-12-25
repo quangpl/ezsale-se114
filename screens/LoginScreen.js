@@ -62,7 +62,7 @@ import { LinearGradient } from "expo-linear-gradient";
       ToastAndroid.LONG,
       ToastAndroid.CENTER
     );
-    this.props.navigation.navigate("Home");
+    this.props.navigation.replace("Home");
   }
 
   render() {
