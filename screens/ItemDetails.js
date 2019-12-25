@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image,Linking,Alert} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
@@ -7,9 +7,42 @@ import { Icon } from "react-native-elements";
 import { Button } from 'react-native-elements';
 import {Dimensions} from 'react-native';
 import { TextInput } from 'react-native';
+import {connect} from "react-redux";
+import { withNavigationFocus } from "react-navigation";
+import ProductService from "../services/products"
 
-export default class ItemDetails extends React.Component {
- 
+class ItemDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+        items: [],
+        user: {},
+        isLogin:false,
+    };
+  }
+  _FollowingItem=(data)=>
+  {
+          if (this.props.isFocused) {
+              if (!this.props.user.authInfo) {
+                Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+                this.props.navigation.navigate("Login");
+                return false;
+              }
+              else
+              {
+                //console.log(this.props.user.authInfo.payload.token);
+                //console.log(data._id);
+                const productService = new ProductService();
+                const result_following =  ProductService.followProduct(
+                  {token: this.props.user.authInfo.payload.token,
+                  productId: data._id}
+                );
+
+              }
+            }
+          
+  }
+
     render(){
         const data = this.props.navigation.getParam("value"); //this,props.data
         const line = {
@@ -38,7 +71,11 @@ export default class ItemDetails extends React.Component {
               />
             </View>
             <View style={styles.info}>
-              <Text style={styles.infoName}>{data.title}</Text>
+              <Text style={styles.infoName}>
+                {data.title}{" "}
+                <Text style={styles.discount}>-{data.discount_rate}%</Text>
+              </Text>
+
               <View>
                 <Text style={styles.infoPrice}> {data.price}đ</Text>
                 <Text style={styles.infoDiscount}>{data.stock_price}đ</Text>
@@ -61,19 +98,25 @@ export default class ItemDetails extends React.Component {
                 title="Mua"
                 titleStyle={{ color: "#fff" }}
                 onPress={() => {
-                  alert("Dẫn đến tiki link");
+                  Linking.openURL(`${data.url}`);
                 }}
               />
 
               <Button
+                icon={
+                  <Icon
+                    name="plus"
+                    type="font-awesome"
+                    color="#189DFF"
+                    iconStyle={{ paddingRight: 5 }}
+                  />
+                }
                 buttonStyle={styles.btnReg}
                 size="large"
                 type="clear"
                 title="Theo Dõi"
                 onPress={() => {
-                  alert(
-                    "Nếu chưa đăng nhập thì đăng nhập, đăng nhập rồi thì xài api theo dõi"
-                  );
+                  this._FollowingItem(data);
                 }}
               />
             </View>
@@ -157,74 +200,81 @@ ItemDetails.navigationOptions = {
   }
 };
 
-
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingTop: 15,
-
+      paddingTop: 15
     },
     btn: {
-        borderRadius: 25,
-        width: 150,
-        alignSelf: "center",
-        borderWidth:2,
-        alignContent:'space-between',
-        backgroundColor:"#189DFF",
-      },
-      btnReg:{
-        borderRadius: 25,
-        width: 150,
-        alignSelf: "center",
-        //marginTop:20,
-        borderWidth:2,
-        marginLeft:30
-      },
-    
-      btnGroup:{
-        //flex: 0.35,
-        marginTop:20,
-        flexDirection:'row',
-        alignSelf:'center',
-        paddingHorizontal:50,
-        alignContent:'space-between',
-      },
-      image: {
-        alignSelf:'center',
-        paddingTop:30,
-      },
-      info: {
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignSelf:'center',
-      },
-      infoName: {
-        fontSize: 17,
-        fontWeight: "400",
-        overflow: "hidden",
-        marginBottom:8,
-        alignSelf:'center',
+      borderRadius: 25,
+      width: 150,
+      alignSelf: "center",
+      borderWidth: 2,
+      alignContent: "space-between",
+      backgroundColor: "#189DFF"
+    },
+    btnReg: {
+      borderRadius: 25,
+      width: 150,
+      alignSelf: "center",
+      //marginTop:20,
+      borderWidth: 2,
+      marginLeft: 30
+    },
 
-      },
-      infoPrice: {
-        fontSize: 13,
-        color: "#FF7C71",
-        fontWeight: "bold",
-        alignSelf:'center',
-
-      },
-      infoDiscount: {
-        fontSize: 13,
-        color: "#BEBEBE",
-        textDecorationLine: "line-through",
-        alignSelf:'center',
-
-
-      },
-      groupBuying:
-      {
-        //flexDirection:'row',
-        borderRadius: 25,
-        //width: 200,
-      }
-    });
+    btnGroup: {
+      //flex: 0.35,
+      marginTop: 20,
+      flexDirection: "row",
+      alignSelf: "center",
+      paddingHorizontal: 50,
+      alignContent: "space-between"
+    },
+    image: {
+      alignSelf: "center",
+      paddingTop: 30
+    },
+    info: {
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignSelf: "center"
+    },
+    infoName: {
+      fontSize: 17,
+      fontWeight: "400",
+      overflow: "hidden",
+      marginBottom: 8,
+      alignSelf: "center",
+      padding: 20
+    },
+    discount: {
+      fontSize: 15,
+      fontWeight: "400",
+      overflow: "hidden",
+      padding: 20,
+      color:"red",
+      marginLeft:40,
+    },
+    infoPrice: {
+      fontSize: 13,
+      color: "#FF7C71",
+      fontWeight: "bold",
+      alignSelf: "center"
+    },
+    infoDiscount: {
+      fontSize: 13,
+      color: "#BEBEBE",
+      textDecorationLine: "line-through",
+      alignSelf: "center"
+    },
+    groupBuying: {
+      //flexDirection:'row',
+      borderRadius: 25
+      //width: 200,
+    }
+  });
+    export default connect(mapStateToProps)(withNavigationFocus(ItemDetails));

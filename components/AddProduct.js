@@ -62,13 +62,15 @@ console.log(this.state.url);
         }}
       >
         <TextInput
+        placeholder="Link sản phẩm bạn muốn theo dõi"
           style={{
             backgroundColor: "white",
             borderRadius: 20,
-            height: 25,
+            height: 30,
             borderWidth: 0,
             paddingLeft: 10,
             marginTop: 3,
+            marginBottom:3,
             flex: 0.9
           }}
           onChangeText={text => {
