@@ -1,5 +1,11 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text,Alert } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Alert,
+  ActivityIndicator
+} from "react-native";
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import {connect} from "react-redux";
@@ -15,7 +21,8 @@ class FollowScreen extends React.Component {
     this.state={
         products:[],
         items: [],
-        user: {}
+        user: {},
+        isLoad:true
         
     };
   }
@@ -31,13 +38,28 @@ class FollowScreen extends React.Component {
 }
 
 async componentDidMount(){
+  this.props.navigation.addListener("didFocus", async() => {
+    this.setState({
+      isLoad: true
+    })
     const productService = new ProductService();
     const productData = await productService.getFollowingByToken(
       this.props.user.authInfo.payload.token
     );
     console.log(productData);
     this.setState({
-      products:productData
+      products:productData,
+      isLoad: false
+    })
+  });
+    const productService = new ProductService();
+    const productData = await productService.getFollowingByToken(
+      this.props.user.authInfo.payload.token
+    );
+    console.log(productData);
+    this.setState({
+      products:productData,
+      isLoad:false
     })
 }
 
@@ -50,7 +72,8 @@ async componentDidMount(){
   return (
     
     <ScrollView style={styles.container}>
-        <FlatList
+     {this.state.isLoad?<ActivityIndicator size="large" color="#199EFF" />:(
+          <FlatList
                   data={this.state.products}
                   keyExtractor={item => {
                     return item._id;
@@ -65,6 +88,7 @@ async componentDidMount(){
                   />
                   )} //method to render the data in the way you want using styling u need
                   />
+     )}
     </ScrollView>
   );
   }

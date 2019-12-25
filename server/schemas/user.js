@@ -30,7 +30,6 @@ const UserSchema = new Schema(
     token: {
       type: String,
       required: true,
-      default: randomstring.generate(20) + Date.now()
     }
   },
   {
