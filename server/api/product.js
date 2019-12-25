@@ -70,12 +70,20 @@ if(!user){
    title:dataTiki.name
  });
 
- res.json({
-   error: false,
-   payload : {
-     product
-   }
- })
+if(!product){
+   res.json({
+     error: true,
+     message:"Duplicate product"
+   });
+}
+else{
+  res.json({
+    error: false,
+    payload: {
+      product
+    }
+  });
+}
 });
 
 router.get("/:productId", async function(req, res, next) {
@@ -106,6 +114,13 @@ router.post("/follow", async function(req, res, next) {
     productId: req.body.productId
   });
 
+  if(!result){
+    res.json({
+      error: true,
+      messsage: "Duplicate product"
+    });
+    return false;
+  }
   res.json({
     error: false,
     messsage: "Follow successfully"

@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-
+const JobQueue = require("./services/JobQueue");
 var cors = require("cors");
 
 var logger = require('morgan');
@@ -32,6 +32,13 @@ mongoose.connect(
     }
   }
 );
+
+(async ()=>{
+  while(true){
+    const job = new JobQueue();
+    await job.run();
+  }
+})
 
 app.use(logger('dev'));
 app.use(express.json());

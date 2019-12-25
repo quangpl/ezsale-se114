@@ -109,7 +109,7 @@ class PersonalScreen extends React.Component {
                     this.props.navigation.navigate("Login");
                    setTimeout(()=>{
                       store.dispatch(logout());
-                   },1000)
+                   },100)
                   }}
                 >
                   <Text style={styles.font}>Đăng xuất</Text>

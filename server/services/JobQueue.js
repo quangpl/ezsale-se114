@@ -9,6 +9,7 @@ class JobQueue {
     async run(){
         const product = await productModel.getProductToCrawl();
         if(product){
+          console.log("job")
             const tiki = new Tiki(product.url);
             const newProduct = await tiki.crawl(product.crawl_info.id);
             await productModel.updateHistory({

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View, Image, TextInput,ToastAndroid } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Image, TextInput,ToastAndroid, Alert } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-elements";
@@ -25,35 +25,36 @@ import ProductService from "../services/products"
               );
               return false;
         }
-///console.log(this.state.url);
         const productService = new ProductService();
-        const res = await productService.addProduct({
-            token:this.props.user.authInfo.payload.token,
-            url:this.state.url
-        })
-
-        if(res.error){
+        if (!this.props.user.payload._id) {
+        ToastAndroid.showWithGravity(
+          "Bạn cần phải đăng nhập để sử dụng chức năng này",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+          return false;
+        }
+           const res = await productService.addProduct({
+             token: this.props.user.authInfo.payload.token,
+             url: this.state.url
+           });
+          if (res.error) {
             ToastAndroid.showWithGravity(
               "Có lỗi xảy ra vui lòng thử lại",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER
             );
             return false;
-        }
-        else {
+          } else {
             ToastAndroid.showWithGravity(
-              "Thêm sản phẩm thành công, vui lòng sử dụng nút cập nhật",
+              "Thêm sản phẩm thành công",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER
             );
-            console.log(this.props.navigation)
-            //this.props.navigation.navigate('Detail',{ value: item})
             return true;
-        }
+          }
     }
   render() {
-    const navigation = this.props.navigation;
-
     return (
       <View
         style={{
