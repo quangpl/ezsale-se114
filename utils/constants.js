@@ -1,4 +1,4 @@
-const URL_BACK_END = "http://10.10.100.189:3000";
+const URL_BACK_END = "https://ezsale2929.herokuapp.com";
 
 export {
     URL_BACK_END
