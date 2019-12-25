@@ -26,6 +26,10 @@ import { LinearGradient } from "expo-linear-gradient";
     };
   }
 
+  async componentDidMount(){
+    const userService = new UserService();
+    await userService.logout();
+  }
   async onLogin() {
     const { email, password } = this.state;
     if ( !email || !password) {

@@ -5,6 +5,7 @@ let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
 const ProductModel = require("./product")
 var randomstring = require("randomstring");
+const uuidv4 =require("uuid/v4")
 
 UserModel.register = async ({
   name,

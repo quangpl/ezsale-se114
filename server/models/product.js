@@ -65,7 +65,7 @@ ProductModel.updateHistory = async ({
           price
         }
       },
-      nextTimeCheck: Date.now() + PERIOD_TIME_CHECK,
+      nextTimeCheck: updated_at + PERIOD_TIME_CHECK,
       price,
       discount_rate,
       stock_price

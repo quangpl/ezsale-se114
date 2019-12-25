@@ -61,7 +61,7 @@ class HomeScreen extends React.Component {
       const user = new UserService();
       const authInfo = await user.auth();
       store.dispatch(auth(authInfo));
-      await registerForPushNotificationsAsync(token); //turn on notify
+     // await registerForPushNotificationsAsync(token); //turn on notify
     }
     const productService = new ProductService();
     const hotProducts = await productService.getHotProducts();
