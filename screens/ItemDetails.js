@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View, Image} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image,Linking,Alert} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "react-native-elements";
@@ -7,9 +7,42 @@ import { Icon } from "react-native-elements";
 import { Button } from 'react-native-elements';
 import {Dimensions} from 'react-native';
 import { TextInput } from 'react-native';
+import {connect} from "react-redux";
+import { withNavigationFocus } from "react-navigation";
+import ProductService from "../services/products"
 
-export default class ItemDetails extends React.Component {
- 
+class ItemDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+        items: [],
+        user: {},
+        isLogin:false,
+    };
+  }
+  _FollowingItem=(data)=>
+  {
+          if (this.props.isFocused) {
+              if (!this.props.user.authInfo) {
+                Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+                this.props.navigation.navigate("Login");
+                return false;
+              }
+              else
+              {
+                //console.log(this.props.user.authInfo.payload.token);
+                //console.log(data._id);
+                const productService = new ProductService();
+                const result_following =  ProductService.followProduct(
+                  {token: this.props.user.authInfo.payload.token,
+                  productId: data._id}
+                );
+
+              }
+            }
+          
+  }
+
     render(){
         const data = this.props.navigation.getParam("value"); //this,props.data
         const line = {
@@ -61,7 +94,7 @@ export default class ItemDetails extends React.Component {
                 title="Mua"
                 titleStyle={{ color: "#fff" }}
                 onPress={() => {
-                  alert("Dẫn đến tiki link");
+                  Linking.openURL(`${data.url}`);
                 }}
               />
 
@@ -70,11 +103,7 @@ export default class ItemDetails extends React.Component {
                 size="large"
                 type="clear"
                 title="Theo Dõi"
-                onPress={() => {
-                  alert(
-                    "Nếu chưa đăng nhập thì đăng nhập, đăng nhập rồi thì xài api theo dõi"
-                  );
-                }}
+                onPress={()=>{this._FollowingItem(data)}}
               />
             </View>
             {/* <View>
@@ -157,7 +186,10 @@ ItemDetails.navigationOptions = {
   }
 };
 
-
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -228,3 +260,4 @@ ItemDetails.navigationOptions = {
         //width: 200,
       }
     });
+    export default connect(mapStateToProps)(withNavigationFocus(ItemDetails));

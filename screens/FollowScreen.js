@@ -1,38 +1,72 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text,Alert } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 import { LinearGradient } from "expo-linear-gradient";
-//
+import {connect} from "react-redux";
 import HorizontalItem from "../components/HorizontalItem";
+import { withNavigationFocus } from "react-navigation";
+import { FlatList } from 'react-native-gesture-handler';
+import ProductService from "../services/products"
 
 
-export default class FollowScreen extends React.Component {
+class FollowScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state={
         products:[],
+        items: [],
+        user: {}
+        
     };
   }
-  async componentDidMount(){
-
+ async componentDidUpdate(prevProps) {
+    if (this.props.isFocused) {
+      //console.log(this.props.user.authInfo);
+        if (!this.props.user.authInfo) {
+          Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+          this.props.navigation.navigate("Login");
+          return false;
+        }
   }
+}
+  
+  _onPressProduct(item){
+    this.props.navigation.navigate("Detail",{value:item});
+  }
+  
   render(){
+    const productService = new ProductService();
+    console.log(this.props.user.authInfo.payload.token);
+    const productData = productService.getFollowingByToken(
+    this.props.user.authInfo.payload.token)
+    this.state.products=productData
   return (
     
     <ScrollView style={styles.container}>
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
-      <HorizontalItem />
+        <FlatList
+                  data={this.state.products}
+                  keyExtractor={item => {
+                    return item._id;
+                  }}
+                  contentContainerStyle={styles.containerFlat} //has to be unique
+                  renderItem={({ item }) => (
+                  <HorizontalItem
+                    onPressProduct={()=>{
+                      this._onPressProduct(item);
+                    }}
+                    itemData={item}
+                  />
+                  )} //method to render the data in the way you want using styling u need
+                  />
     </ScrollView>
   );
   }
 }
 
+const mapStateToProps = state => ({
+  items: state.items,
+  user:state.user
+});
 
 FollowScreen.navigationOptions = {
   title: "Theo dõi",
@@ -52,5 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: "#F8F9FA"
-  }
+  },
+
 });
+export default connect(mapStateToProps)(withNavigationFocus(FollowScreen));
