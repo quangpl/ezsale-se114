@@ -107,10 +107,13 @@ UserModel.followProduct = async ({
   if(!user){
     return false;
   }
-  await ProductModel.addFollower({
-    productId,
-    userId
-  });
+  if (user.following.indexOf(productId)!==-1){
+      return false;
+  }
+    await ProductModel.addFollower({
+      productId,
+      userId
+    });
 
    await UserModel.updateOne(
     {

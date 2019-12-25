@@ -4,6 +4,7 @@ let ProductModel = mongoose.model("Product", ProductSchema);
 let bcrypt = require("bcrypt");
 const DEFAULT_SALT_ROUND = 6;
 const {NUMBER_OF_PRODUCT_HOT,PERIOD_TIME_CHECK} = require("../utils/constant")
+
 ProductModel.add = async ({
   created_by,
   image,
@@ -15,6 +16,9 @@ ProductModel.add = async ({
   stock_price,
   title
 }) => {
+  if(await ProductModel.hasExist(title)){
+    return false;
+  }
   let newProduct = new ProductModel({
     created_by,
     image,
@@ -38,6 +42,14 @@ ProductModel.add = async ({
 
   await newProduct.save();
   return newProduct;
+};
+
+
+ProductModel.hasExist = async title => {
+   const product = await ProductModel.findOne({
+    title
+  }).exec();
+  return product? true :false;
 };
 
 
