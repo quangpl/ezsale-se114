@@ -47,6 +47,8 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
+
+
 const AddProStack = createStackNavigator(
   {
     AddPr: AddProduct,
@@ -66,6 +68,9 @@ AddProStack.navigationOptions = {
 };
 
 AddProStack.path = "";
+
+
+
 const FollowStack = createStackNavigator(
   {
     Follow: FollowScreen,

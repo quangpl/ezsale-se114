@@ -25,7 +25,7 @@ import ProductService from "../services/products"
               );
               return false;
         }
-console.log(this.state.url);
+///console.log(this.state.url);
         const productService = new ProductService();
         const res = await productService.addProduct({
             token:this.props.user.authInfo.payload.token,
@@ -42,7 +42,7 @@ console.log(this.state.url);
         }
         else {
             ToastAndroid.showWithGravity(
-              "Thêm sản phẩm thành công",
+              "Thêm sản phẩm thành công, vui lòng sử dụng nút cập nhật",
               ToastAndroid.SHORT,
               ToastAndroid.CENTER
             );
