@@ -30,7 +30,8 @@ export default class ProductService {
       token,
       productId
     });
-    return true;
+    return res.data.error;
+    ;
   }
 
   async addProduct({ token, url }) {
@@ -38,6 +39,6 @@ export default class ProductService {
       token,
       url
     });
-    return res.data.payload.product;
+    return res.data ;
   }
 }

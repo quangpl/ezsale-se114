@@ -145,10 +145,10 @@ class HomeScreen extends React.Component {
                   <Icon
                     name="refresh"
                     type="font-awesome"
-                    color="blue"
+                    color="#199EFF"
                     size={15}
-                    style={{
-                      marginLeft:20
+                    iconStyle={{
+                      marginLeft:10
                     }}
                     onPress={
                       async()=>

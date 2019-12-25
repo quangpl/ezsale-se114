@@ -42,11 +42,23 @@ class ItemDetails extends React.Component {
                   token: this.props.user.authInfo.payload.token,
                   productId: data._id
                 });
+                if(result_following)
+                {
+                  ToastAndroid.showWithGravity(
+                    "Sản phẩm này đã có trong danh sách theo dõi!",
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    
+                  );
+                  return false;
+                }
+                else{
                  ToastAndroid.showWithGravity(
                    "Sản phẩm đã được theo dõi",
                    ToastAndroid.SHORT,
                    ToastAndroid.CENTER
                  );
+                }
 
               }
             }
