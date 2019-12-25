@@ -26,8 +26,8 @@ class PersonalScreen extends React.Component {
     if (this.props.isFocused) {
       console.log(this.props.user.authInfo);
         if (!this.props.user.authInfo) {
-          alert("Vui lòng đăng nhập để sử dụng tính năng này");
-          this.props.navigation.navigate("Login");
+          Alert.alert("Thông báo","Vui lòng đăng nhập để sử dụng tính năng này");
+          this.props.navigation.replace("Login");
           return false;
         }
     }

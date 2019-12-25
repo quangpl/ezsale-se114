@@ -31,6 +31,9 @@ const ProductSchema = new Schema(
       type: String,
       required: true
     },
+    crawl_id:{
+      type: Number
+    },
     url: {
       type: String,
       required: true

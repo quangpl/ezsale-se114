@@ -26,7 +26,7 @@ import ProductService from "../services/products"
               return false;
         }
         const productService = new ProductService();
-        if (!this.props.user.payload._id) {
+        if (!this.props.user.authInfo.payload._id) {
         ToastAndroid.showWithGravity(
           "Bạn cần phải đăng nhập để sử dụng chức năng này",
           ToastAndroid.SHORT,
@@ -38,6 +38,7 @@ import ProductService from "../services/products"
              token: this.props.user.authInfo.payload.token,
              url: this.state.url
            });
+           console.log(res);
           if (res.error) {
             ToastAndroid.showWithGravity(
               "Có lỗi xảy ra vui lòng thử lại",

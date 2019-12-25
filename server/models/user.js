@@ -107,6 +107,7 @@ UserModel.followProduct = async ({
   if(!user){
     return false;
   }
+  console.log(user.following)
   if (user.following.indexOf(productId)!==-1){
       return false;
   }

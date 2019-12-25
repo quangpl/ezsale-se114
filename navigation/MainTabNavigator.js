@@ -11,6 +11,7 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ItemDetails from "../screens/ItemDetails";
 import ChangePassword from '../screens/ChangePassword'
+import AddProduct from '../components/AddProduct'
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
@@ -25,6 +26,7 @@ const HomeStack = createStackNavigator(
     Home: HomeScreen,
     Login:LoginScreen,
     ChangePass:ChangePassword,  
+    AddPr:AddProduct,
   },
   config
 );
@@ -44,6 +46,30 @@ HomeStack.navigationOptions = {
 };
 
 HomeStack.path = '';
+
+
+
+const AddProStack = createStackNavigator(
+  {
+    AddPr: AddProduct,
+    Detail:ItemDetails,
+  },
+  config
+);
+
+AddProStack.navigationOptions = {
+  //tabBarLabel: "T",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-pulse" : "md-pulse"}
+    />
+  )
+};
+
+AddProStack.path = "";
+
+
 
 const FollowStack = createStackNavigator(
   {

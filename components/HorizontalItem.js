@@ -1,9 +1,10 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Image,Linking } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-elements";
 import { Icon } from "react-native-elements";
+import numeral from 'numeral'
 
 export default class HorizontalItem extends React.Component {
   constructor(props) {
@@ -17,6 +18,11 @@ export default class HorizontalItem extends React.Component {
     else {
       return str;
     }
+  }
+  changCurrent=(str)=>
+  {
+    str = numeral(str).format('0,0');
+    return str;
   }
   
   render() {
@@ -39,8 +45,8 @@ export default class HorizontalItem extends React.Component {
             {this.stringprocess(itemData.title)}            
             </Text>
             <View>
-              <Text style={styles.infoPrice}> {itemData.price}đ</Text>
-              <Text style={styles.infoDiscount}> {itemData.stock_price}đ</Text>
+            <Text style={styles.infoPrice}> {this.changCurrent(itemData.price)}đ</Text>
+            <Text style={styles.infoDiscount}>{this.changCurrent(itemData.stock_price)}đ</Text>
             </View>
           </View>
           <View style={styles.action}>
@@ -48,7 +54,9 @@ export default class HorizontalItem extends React.Component {
               name="shopping-cart"
               type="font-awesome"
               color="#199EFF"
-              onPress={() => alert("hello")}
+              onPress={() => {
+                Linking.openURL(`${itemData.url}`);
+              }}
             />
           </View>
         </View>
@@ -90,7 +98,9 @@ const styles = StyleSheet.create({
   infoDiscount: {
     fontSize: 13,
     color: "#BEBEBE",
-    textDecorationLine: "line-through"
+    textDecorationLine: "line-through",
+    marginLeft:2
+
   },
   right: {
     flexDirection: "row",

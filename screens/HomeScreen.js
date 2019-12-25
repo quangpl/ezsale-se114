@@ -126,6 +126,7 @@ class HomeScreen extends React.Component {
                       )}
                       sliderWidth={300}
                       itemWidth={100}
+                      layoutCardOffset={30}
                     />
                     {/* <FlatList
                     data={productsHot}
@@ -137,7 +138,39 @@ class HomeScreen extends React.Component {
                 </View>
 
                 <View style={styles.containerMostComparable}>
-                  <Text style={styles.headerText}>Mới nhất</Text>
+                  <View style={{flexDirection:'row'}}>
+                    <Text style={styles.headerText}>
+                    Mới nhất 
+                    </Text>
+                  <Icon
+                    name="refresh"
+                    type="font-awesome"
+                    color="#199EFF"
+                    size={15}
+                    iconStyle={{
+                      marginLeft:10
+                    }}
+                    onPress={
+                      async()=>
+                      {
+                          this.setState({
+                            isLoad: true
+                          })
+                          const productService = new ProductService();
+                          const NewProducts = await productService.getNewProducts({
+                            page: this.state.page,
+                            perpage: 12
+                          });
+                          await this.setState({
+                            productsNew: NewProducts,
+                            isLoad:false
+                          });
+    
+                        }
+                    }
+                  />
+                  </View>
+                           
                   <FlatList
                     data={productsNew}
                     keyExtractor={item => {
@@ -156,7 +189,23 @@ class HomeScreen extends React.Component {
                     )} //method to render the data in the way you want using styling u need
                     horizontal={false}
                     numColumns={3}
-                    onEndReachedThreshold={0.1}
+                    // onEndReachedThreshold={1}
+                    // onEndReached={async()=> 
+                    // {
+                    //   this.setState({
+                    //     isLoad: true
+                    //   })
+                    //   const productService = new ProductService();
+                    //   const NewProducts = await productService.getNewProducts({
+                    //     page: this.state.page,
+                    //     perpage: 12
+                    //   }); //default 12
+                    //   await this.setState({
+                    //     productsNew: NewProducts,
+                    //     isLoad:false
+                    //   });
+
+                    // }}
                   />
                 </View>
               </View>

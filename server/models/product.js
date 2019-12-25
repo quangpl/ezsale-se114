@@ -16,7 +16,8 @@ ProductModel.add = async ({
   stock_price,
   title
 }) => {
-  if(await ProductModel.hasExist(title)){
+  if(await ProductModel.hasExist(crawl_info.id)){
+    console.log("trung")
     return false;
   }
   let newProduct = new ProductModel({
@@ -29,6 +30,7 @@ ProductModel.add = async ({
     crawl_info,
     stock_price,
     title,
+    crawl_id:crawl_info.id,
     followers:[
       mongoose.Types.ObjectId(created_by)
     ],
@@ -45,9 +47,9 @@ ProductModel.add = async ({
 };
 
 
-ProductModel.hasExist = async title => {
+ProductModel.hasExist = async crawlId => {
    const product = await ProductModel.findOne({
-    title
+    crawl_id:crawlId
   }).exec();
   return product? true :false;
 };

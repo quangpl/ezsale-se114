@@ -1,4 +1,5 @@
 import { SearchBar } from "react-native-elements";
+import numeral from 'numeral'
 import React from "react";
 import {
   Image,
@@ -22,6 +23,11 @@ export default class VerticalProduct extends React.Component {
       return str;
     }
   }
+  changCurrent=(str)=>
+  {
+    str = numeral(str).format('0,0');
+    return str;
+  }
   componentDidMount(){
     console.log(this.props.navigation);
   }
@@ -42,8 +48,8 @@ export default class VerticalProduct extends React.Component {
           <View style={styles.info}>
             <Text style={styles.infoName}>{this.stringprocess(itemData.title)}</Text>
             <View>
-              <Text style={styles.infoPrice}> {itemData.price}đ</Text>
-              <Text style={styles.infoDiscount}>{itemData.stock_price}đ</Text>
+              <Text style={styles.infoPrice}> {this.changCurrent(itemData.price)}đ</Text>
+              <Text style={styles.infoDiscount}>{this.changCurrent(itemData.stock_price)}đ</Text>
             </View>
           </View>
         </View>
@@ -60,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   Item: {
+    margin:5,
     flexDirection: "column"
 
   },
@@ -82,17 +89,20 @@ const styles = StyleSheet.create({
     
   },
   infoPrice: {
-    fontSize: 13,
+    fontSize: 11,
     color: "#FF7C71",
     fontWeight: "bold",
-    alignSelf:'center'
+    //alignSelf:'center'
+    textAlign:'left',
 
   },
   infoDiscount: {
-    fontSize: 13,
+    fontSize: 11,
     color: "#BEBEBE",
     textDecorationLine: "line-through",
-    alignSelf:'center'
+    //alignSelf:'center'
+    textAlign:'left',
+    marginLeft:2
 
   },
   info: {
