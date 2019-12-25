@@ -143,7 +143,7 @@ class HomeScreen extends React.Component {
                     keyExtractor={item => {
                       return item._id;
                     }}
-                    contentContainerStyle={styles.containerFlat} //has to be unique
+                    columnWrapperStyle={styles.containerFlat} //has to be unique
                     renderItem={({ item }) => (
                       <View style={styles.wrapper}>
                         <VerticalProduct
